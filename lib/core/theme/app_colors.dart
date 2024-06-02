@@ -7,6 +7,8 @@ class AppColors {
   static Color unselectedTextColor = HexColor.fromHex('#B7B7B7');
   static Color selectedTextColor = HexColor.fromHex('#101010');
   static Color descriptionTextColor = HexColor.fromHex('#6F6F6F');
+  static Color cartSubTextColor = HexColor.fromHex('#666666');
+  static Color dividerColor = HexColor.fromHex('#F3F3F3');
 }
 
 extension HexColor on Color {

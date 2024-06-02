@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesly/core/firebase/firebase_database_service.dart';
 import 'package:shoesly/core/responsive.dart';
+import 'package:shoesly/core/routes.dart';
 import 'package:shoesly/core/theme/app_colors.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
 import 'package:shoesly/core/utlis/dummy_data.dart';
 import 'package:shoesly/feature/discover/presentation/widgets/primary_button_widget.dart';
-
-import '../../../../core/firebase/firebase_messaging_service.dart';
 import '../widgets/product_item_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -40,9 +39,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     text: "filter",
                     iconRequired: true,
                     onPressed: () async {
-                      final fcmToken = await FirebaseMessagingService()
-                          .generateFirebaseToken();
-                      print("fcmToken::: $fcmToken");
+                      // Navigator.pushNamed(context, AppRoutes.productFilter);
+                      await FirebaseDatabaseService().getRequests();
                     },
                   ),
                 ),
@@ -99,7 +97,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.cart);
+                        },
                         icon: Stack(
                           children: [
                             SvgPicture.asset("assets/svgs/bag.svg"),

@@ -297,7 +297,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       isleftButtonRequired: false,
                       title: "Total Price",
                       rightButtonText: "add to cart",
-                      rightButtonOnPressed: () {},
+                      rightButtonOnPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.cart);
+                      },
                       isBoxShadowRequired: false,
                     )
                   ],
