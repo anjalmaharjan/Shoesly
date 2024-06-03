@@ -18,6 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DiscoverState {
   dynamic get categoryIndex => throw _privateConstructorUsedError;
   dynamic get showFilterButton => throw _privateConstructorUsedError;
+  List<ProductModel>? get productModelList =>
+      throw _privateConstructorUsedError;
+  ApiRequestStates get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DiscoverStateCopyWith<DiscoverState> get copyWith =>
@@ -30,7 +33,11 @@ abstract class $DiscoverStateCopyWith<$Res> {
           DiscoverState value, $Res Function(DiscoverState) then) =
       _$DiscoverStateCopyWithImpl<$Res, DiscoverState>;
   @useResult
-  $Res call({dynamic categoryIndex, dynamic showFilterButton});
+  $Res call(
+      {dynamic categoryIndex,
+      dynamic showFilterButton,
+      List<ProductModel>? productModelList,
+      ApiRequestStates status});
 }
 
 /// @nodoc
@@ -48,6 +55,8 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
   $Res call({
     Object? categoryIndex = freezed,
     Object? showFilterButton = freezed,
+    Object? productModelList = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       categoryIndex: freezed == categoryIndex
@@ -58,6 +67,14 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
           ? _value.showFilterButton
           : showFilterButton // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      productModelList: freezed == productModelList
+          ? _value.productModelList
+          : productModelList // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ApiRequestStates,
     ) as $Val);
   }
 }
@@ -70,7 +87,11 @@ abstract class _$$DiscoverStateImplCopyWith<$Res>
       __$$DiscoverStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic categoryIndex, dynamic showFilterButton});
+  $Res call(
+      {dynamic categoryIndex,
+      dynamic showFilterButton,
+      List<ProductModel>? productModelList,
+      ApiRequestStates status});
 }
 
 /// @nodoc
@@ -86,6 +107,8 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
   $Res call({
     Object? categoryIndex = freezed,
     Object? showFilterButton = freezed,
+    Object? productModelList = freezed,
+    Object? status = null,
   }) {
     return _then(_$DiscoverStateImpl(
       categoryIndex:
@@ -93,6 +116,14 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
       showFilterButton: freezed == showFilterButton
           ? _value.showFilterButton!
           : showFilterButton,
+      productModelList: freezed == productModelList
+          ? _value._productModelList
+          : productModelList // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ApiRequestStates,
     ));
   }
 }
@@ -101,8 +132,12 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
 
 class _$DiscoverStateImpl extends _DiscoverState {
   const _$DiscoverStateImpl(
-      {this.categoryIndex = 0, this.showFilterButton = true})
-      : super._();
+      {this.categoryIndex = 0,
+      this.showFilterButton = true,
+      final List<ProductModel>? productModelList,
+      this.status = ApiRequestStates.initial})
+      : _productModelList = productModelList,
+        super._();
 
   @override
   @JsonKey()
@@ -110,10 +145,24 @@ class _$DiscoverStateImpl extends _DiscoverState {
   @override
   @JsonKey()
   final dynamic showFilterButton;
+  final List<ProductModel>? _productModelList;
+  @override
+  List<ProductModel>? get productModelList {
+    final value = _productModelList;
+    if (value == null) return null;
+    if (_productModelList is EqualUnmodifiableListView)
+      return _productModelList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final ApiRequestStates status;
 
   @override
   String toString() {
-    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton)';
+    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton, productModelList: $productModelList, status: $status)';
   }
 
   @override
@@ -124,14 +173,19 @@ class _$DiscoverStateImpl extends _DiscoverState {
             const DeepCollectionEquality()
                 .equals(other.categoryIndex, categoryIndex) &&
             const DeepCollectionEquality()
-                .equals(other.showFilterButton, showFilterButton));
+                .equals(other.showFilterButton, showFilterButton) &&
+            const DeepCollectionEquality()
+                .equals(other._productModelList, _productModelList) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(categoryIndex),
-      const DeepCollectionEquality().hash(showFilterButton));
+      const DeepCollectionEquality().hash(showFilterButton),
+      const DeepCollectionEquality().hash(_productModelList),
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -143,13 +197,19 @@ class _$DiscoverStateImpl extends _DiscoverState {
 abstract class _DiscoverState extends DiscoverState {
   const factory _DiscoverState(
       {final dynamic categoryIndex,
-      final dynamic showFilterButton}) = _$DiscoverStateImpl;
+      final dynamic showFilterButton,
+      final List<ProductModel>? productModelList,
+      final ApiRequestStates status}) = _$DiscoverStateImpl;
   const _DiscoverState._() : super._();
 
   @override
   dynamic get categoryIndex;
   @override
   dynamic get showFilterButton;
+  @override
+  List<ProductModel>? get productModelList;
+  @override
+  ApiRequestStates get status;
   @override
   @JsonKey(ignore: true)
   _$$DiscoverStateImplCopyWith<_$DiscoverStateImpl> get copyWith =>

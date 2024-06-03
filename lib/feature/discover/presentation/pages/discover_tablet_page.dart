@@ -21,12 +21,12 @@ class DiscoverPageTablet extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
-          flex: 6,
-          child: ProductItem(
-            productList: DummyData.dummyProductList,
-          ),
-        ),
+        // Expanded(
+        //   flex: 6,
+        //   child: ProductItem(
+        //     productList: DummyData.dummyProductList,
+        //   ),
+        // ),
       ],
     );
   }

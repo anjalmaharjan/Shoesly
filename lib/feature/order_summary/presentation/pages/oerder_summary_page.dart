@@ -110,7 +110,19 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
       ),
       bottomNavigationBar: CustomBottomNavBar(
         rightButtonText: "payment",
-        rightButtonOnPressed: () {},
+        rightButtonOnPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog.adaptive(
+              titlePadding: const EdgeInsets.symmetric(vertical: 80),
+              title: Center(
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: AppColors.selectedTextColor,
+                ),
+              ),
+            ),
+          );
+        },
         isleftButtonRequired: false,
         title: "Grand Total",
         totalCost: "705.00",

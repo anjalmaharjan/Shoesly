@@ -36,6 +36,7 @@ class LocalNotificationService {
           'channelName',
           importance: Importance.max,
         ),
+        // iOS: DarwinNotificationDetails()
       ),
       payload: jsonEncode(message.data),
     );

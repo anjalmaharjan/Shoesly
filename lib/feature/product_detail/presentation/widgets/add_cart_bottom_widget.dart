@@ -142,7 +142,10 @@ class AddToCartWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 CustomBottomNavBar(
                   leftButtonText: "back explore",
-                  leftButtonOnPressed: () {},
+                  leftButtonOnPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, AppRoutes.discover, (route) => false);
+                  },
                   isleftButtonRequired: true,
                   title: "Total Price",
                   rightButtonText: "to cart",

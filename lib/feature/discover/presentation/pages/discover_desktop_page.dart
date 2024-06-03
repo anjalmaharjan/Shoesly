@@ -21,9 +21,9 @@ class DiscoverPageDesktop extends StatelessWidget {
             ),
           ),
         ),
-        ProductItem(
-          productList: DummyData.dummyProductList,
-        ),
+        // ProductItem(
+        //   productList: DummyData.dummyProductList,
+        // ),
       ],
     );
   }

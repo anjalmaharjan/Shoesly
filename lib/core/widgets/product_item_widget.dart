@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shoesly/core/product_model.dart';
 import 'package:shoesly/core/routes.dart';
 
 import '../responsive.dart';
 import '../theme/app_colors.dart';
 
 class ProductItem extends StatelessWidget {
-  final List<ProductItemModel> productList;
+  final List<ProductModel> productList;
   const ProductItem({super.key, required this.productList});
 
   @override
@@ -51,16 +52,16 @@ class ProductItem extends StatelessWidget {
                               : double.infinity,
                           padding: const EdgeInsets.only(top: 30),
                           child: Hero(
-                            tag: "${product.name ?? 0}${product.id ?? 0}",
-                            child: Image.asset(
+                            tag: "${product.name ?? 0}${product.price ?? 0}",
+                            child: Image.network(
                               productList[index].image ?? "",
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
-                          child:
-                              SvgPicture.asset(productList[index].logo ?? ""),
+                          child: SvgPicture.network(
+                              productList[index].brandLogo ?? ""),
                         )
                       ],
                     ),
@@ -99,7 +100,7 @@ class ProductItem extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text:
-                                      '(${productList[index].reviewCount ?? "No"} Reviews)',
+                                      '(${productList[index].review?.length ?? "No"} Reviews)',
                                   style: textTheme.titleSmall!.copyWith(
                                     color: AppColors.unselectedTextColor,
                                   ),
