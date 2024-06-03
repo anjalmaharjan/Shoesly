@@ -16,7 +16,7 @@ class ReviewListWidget extends StatelessWidget {
     return ListView.separated(
       separatorBuilder: (context, index) => const SizedBox(height: 30),
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: product.reviewList?.length ?? 3,
+      itemCount: product.reviewList?.length ?? 0,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return CommentItemWidget(

@@ -4,9 +4,9 @@ part of 'filter_cubit.dart';
 class FilterState with _$FilterState {
   const FilterState._();
   const factory FilterState({
-    @Default(0) sortByIndex,
-    @Default(0) genderIndex,
-    @Default(0) colorIndex,
-    @Default(0) brandIndex,
+    @Default(0) int sortByIndex,
+    @Default(0) int genderIndex,
+    @Default(0) int colorIndex,
+    @Default(0) int brandIndex,
   }) = _FilterState;
 }

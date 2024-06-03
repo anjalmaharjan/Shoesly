@@ -11,6 +11,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 1,
       size: [39.0, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -21,6 +23,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 2,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -31,6 +35,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 3,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -41,6 +47,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 4,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -51,6 +59,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 5,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -61,6 +71,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 6,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
     ProductItemModel(
       name: "Jordan 1 Retro High Tie Dye",
@@ -71,6 +83,8 @@ class DummyData {
       logo: "assets/svgs/star.svg",
       id: 7,
       size: [39, 39.5, 40, 40.5, 41],
+      reviewList: reviewList,
+      descrption: description,
     ),
   ];
 
@@ -88,6 +102,8 @@ class DummyData {
   static String name = "Ram Maharjan";
   static String comment = "This is a very good application you have developed.";
   static int starCount = 5;
+  static String description =
+      "Enginered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair. ";
 
   static List<ProductReviewModel> reviewList = [
     ProductReviewModel(

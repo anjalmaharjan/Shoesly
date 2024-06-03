@@ -16,10 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FilterState {
-  dynamic get sortByIndex => throw _privateConstructorUsedError;
-  dynamic get genderIndex => throw _privateConstructorUsedError;
-  dynamic get colorIndex => throw _privateConstructorUsedError;
-  dynamic get brandIndex => throw _privateConstructorUsedError;
+  int get sortByIndex => throw _privateConstructorUsedError;
+  int get genderIndex => throw _privateConstructorUsedError;
+  int get colorIndex => throw _privateConstructorUsedError;
+  int get brandIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FilterStateCopyWith<FilterState> get copyWith =>
@@ -32,11 +32,7 @@ abstract class $FilterStateCopyWith<$Res> {
           FilterState value, $Res Function(FilterState) then) =
       _$FilterStateCopyWithImpl<$Res, FilterState>;
   @useResult
-  $Res call(
-      {dynamic sortByIndex,
-      dynamic genderIndex,
-      dynamic colorIndex,
-      dynamic brandIndex});
+  $Res call({int sortByIndex, int genderIndex, int colorIndex, int brandIndex});
 }
 
 /// @nodoc
@@ -52,28 +48,28 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sortByIndex = freezed,
-    Object? genderIndex = freezed,
-    Object? colorIndex = freezed,
-    Object? brandIndex = freezed,
+    Object? sortByIndex = null,
+    Object? genderIndex = null,
+    Object? colorIndex = null,
+    Object? brandIndex = null,
   }) {
     return _then(_value.copyWith(
-      sortByIndex: freezed == sortByIndex
+      sortByIndex: null == sortByIndex
           ? _value.sortByIndex
           : sortByIndex // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      genderIndex: freezed == genderIndex
+              as int,
+      genderIndex: null == genderIndex
           ? _value.genderIndex
           : genderIndex // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      colorIndex: freezed == colorIndex
+              as int,
+      colorIndex: null == colorIndex
           ? _value.colorIndex
           : colorIndex // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      brandIndex: freezed == brandIndex
+              as int,
+      brandIndex: null == brandIndex
           ? _value.brandIndex
           : brandIndex // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as int,
     ) as $Val);
   }
 }
@@ -86,11 +82,7 @@ abstract class _$$FilterStateImplCopyWith<$Res>
       __$$FilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {dynamic sortByIndex,
-      dynamic genderIndex,
-      dynamic colorIndex,
-      dynamic brandIndex});
+  $Res call({int sortByIndex, int genderIndex, int colorIndex, int brandIndex});
 }
 
 /// @nodoc
@@ -104,16 +96,28 @@ class __$$FilterStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sortByIndex = freezed,
-    Object? genderIndex = freezed,
-    Object? colorIndex = freezed,
-    Object? brandIndex = freezed,
+    Object? sortByIndex = null,
+    Object? genderIndex = null,
+    Object? colorIndex = null,
+    Object? brandIndex = null,
   }) {
     return _then(_$FilterStateImpl(
-      sortByIndex: freezed == sortByIndex ? _value.sortByIndex! : sortByIndex,
-      genderIndex: freezed == genderIndex ? _value.genderIndex! : genderIndex,
-      colorIndex: freezed == colorIndex ? _value.colorIndex! : colorIndex,
-      brandIndex: freezed == brandIndex ? _value.brandIndex! : brandIndex,
+      sortByIndex: null == sortByIndex
+          ? _value.sortByIndex
+          : sortByIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      genderIndex: null == genderIndex
+          ? _value.genderIndex
+          : genderIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      colorIndex: null == colorIndex
+          ? _value.colorIndex
+          : colorIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      brandIndex: null == brandIndex
+          ? _value.brandIndex
+          : brandIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -130,16 +134,16 @@ class _$FilterStateImpl extends _FilterState {
 
   @override
   @JsonKey()
-  final dynamic sortByIndex;
+  final int sortByIndex;
   @override
   @JsonKey()
-  final dynamic genderIndex;
+  final int genderIndex;
   @override
   @JsonKey()
-  final dynamic colorIndex;
+  final int colorIndex;
   @override
   @JsonKey()
-  final dynamic brandIndex;
+  final int brandIndex;
 
   @override
   String toString() {
@@ -151,23 +155,19 @@ class _$FilterStateImpl extends _FilterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FilterStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other.sortByIndex, sortByIndex) &&
-            const DeepCollectionEquality()
-                .equals(other.genderIndex, genderIndex) &&
-            const DeepCollectionEquality()
-                .equals(other.colorIndex, colorIndex) &&
-            const DeepCollectionEquality()
-                .equals(other.brandIndex, brandIndex));
+            (identical(other.sortByIndex, sortByIndex) ||
+                other.sortByIndex == sortByIndex) &&
+            (identical(other.genderIndex, genderIndex) ||
+                other.genderIndex == genderIndex) &&
+            (identical(other.colorIndex, colorIndex) ||
+                other.colorIndex == colorIndex) &&
+            (identical(other.brandIndex, brandIndex) ||
+                other.brandIndex == brandIndex));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(sortByIndex),
-      const DeepCollectionEquality().hash(genderIndex),
-      const DeepCollectionEquality().hash(colorIndex),
-      const DeepCollectionEquality().hash(brandIndex));
+      runtimeType, sortByIndex, genderIndex, colorIndex, brandIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -178,20 +178,20 @@ class _$FilterStateImpl extends _FilterState {
 
 abstract class _FilterState extends FilterState {
   const factory _FilterState(
-      {final dynamic sortByIndex,
-      final dynamic genderIndex,
-      final dynamic colorIndex,
-      final dynamic brandIndex}) = _$FilterStateImpl;
+      {final int sortByIndex,
+      final int genderIndex,
+      final int colorIndex,
+      final int brandIndex}) = _$FilterStateImpl;
   const _FilterState._() : super._();
 
   @override
-  dynamic get sortByIndex;
+  int get sortByIndex;
   @override
-  dynamic get genderIndex;
+  int get genderIndex;
   @override
-  dynamic get colorIndex;
+  int get colorIndex;
   @override
-  dynamic get brandIndex;
+  int get brandIndex;
   @override
   @JsonKey(ignore: true)
   _$$FilterStateImplCopyWith<_$FilterStateImpl> get copyWith =>
