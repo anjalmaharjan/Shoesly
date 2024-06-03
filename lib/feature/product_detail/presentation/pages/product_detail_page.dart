@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/responsive.dart';
 import 'package:shoesly/core/routes.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
-import 'package:shoesly/feature/discover/presentation/widgets/border_button_widget.dart';
-import 'package:shoesly/feature/discover/presentation/widgets/product_item_widget.dart';
+import 'package:shoesly/core/widgets/border_button_widget.dart';
+import 'package:shoesly/core/widgets/product_item_widget.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../discover/presentation/widgets/primary_button_widget.dart';
+import '../../../../core/widgets/primary_button_widget.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});

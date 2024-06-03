@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shoesly/core/routes.dart';
 
-import '../../../../core/responsive.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../responsive.dart';
+import '../theme/app_colors.dart';
 
 class ProductItem extends StatelessWidget {
   final List<ProductItemModel> productList;

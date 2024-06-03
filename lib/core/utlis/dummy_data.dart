@@ -1,4 +1,4 @@
-import '../../feature/discover/presentation/widgets/product_item_widget.dart';
+import '../widgets/product_item_widget.dart';
 
 class DummyData {
   static List<ProductItemModel> dummyProductList = [

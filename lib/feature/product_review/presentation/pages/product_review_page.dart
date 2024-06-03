@@ -5,7 +5,7 @@ import 'package:shoesly/core/theme/font_manager.dart';
 import 'package:shoesly/core/utlis/dummy_data.dart';
 import 'package:shoesly/feature/product_detail/presentation/pages/product_detail_page.dart';
 
-import '../../../discover/presentation/pages/discover_page.dart';
+import '../../../../core/widgets/category_item_widget.dart';
 
 class ProductReviewPage extends StatefulWidget {
   const ProductReviewPage({super.key});
