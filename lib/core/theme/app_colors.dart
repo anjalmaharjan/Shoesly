@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesly/core/extensions/color_extenstion.dart';
 
 class AppColors {
   static const Color backgroundColor = Colors.white;
@@ -9,14 +10,4 @@ class AppColors {
   static Color descriptionTextColor = HexColor.fromHex('#6F6F6F');
   static Color cartSubTextColor = HexColor.fromHex('#666666');
   static Color dividerColor = HexColor.fromHex('#F3F3F3');
-}
-
-extension HexColor on Color {
-  static Color fromHex(String hexColorString) {
-    hexColorString = hexColorString.replaceAll("#", "");
-    if (hexColorString.length == 6) {
-      hexColorString = "FF$hexColorString";
-    }
-    return Color(int.parse(hexColorString, radix: 16));
-  }
 }

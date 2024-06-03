@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoesly/core/firebase/firebase_messaging_service.dart';
 import 'package:shoesly/core/firebase/firebase_options.dart';
 import 'package:shoesly/core/routes.dart';
 import 'package:shoesly/core/theme/app_theme.dart';
 import 'package:shoesly/feature/cart/presentation/pages/cart_page.dart';
+import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart';
 import 'package:shoesly/feature/discover/presentation/pages/discover_page.dart';
 import 'package:shoesly/feature/order_summary/presentation/pages/oerder_summary_page.dart';
 import 'package:shoesly/feature/product_detail/presentation/pages/product_detail_page.dart';
@@ -27,7 +29,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Shoesly',
       theme: AppTheme.lightThemeMode,
-      home: const DiscoverPage(),
+      home: BlocProvider(
+        create: (context) => DiscoverCubit(),
+        child: const DiscoverPage(),
+      ),
       routes: {
         AppRoutes.discover: (context) => const DiscoverPage(),
         AppRoutes.productDetail: (context) => const ProductDetailPage(),

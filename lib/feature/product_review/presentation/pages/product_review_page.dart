@@ -15,6 +15,15 @@ class ProductReviewPage extends StatefulWidget {
 }
 
 class _ProductReviewPageState extends State<ProductReviewPage> {
+  List reviewCategoryList = [
+    'All',
+    "5 Stars",
+    "4 Stars",
+    '3 Stars',
+    "2 Stars",
+    '1 Star'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,17 +59,23 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
         mobile: Column(
           children: [
             const SizedBox(height: 15),
-            const SizedBox(
+            SizedBox(
               height: 40,
-              child: CategoryListWidget(
-                list: [
-                  'All',
-                  "5 Stars",
-                  "4 Stars",
-                  '3 Stars',
-                  "2 Stars",
-                  '1 Star'
-                ],
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Padding(
+                  padding: index == 0
+                      ? const EdgeInsets.only(left: 14.0)
+                      : EdgeInsets.zero,
+                  child: CategoryItem(
+                    isSelected: false,
+                    text: reviewCategoryList[index],
+                    onPressed: () {},
+                  ),
+                ),
+                separatorBuilder: (context, index) => const SizedBox(width: 4),
+                itemCount: reviewCategoryList.length,
               ),
             ),
             Expanded(

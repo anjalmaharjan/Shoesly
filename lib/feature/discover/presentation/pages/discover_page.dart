@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoesly/core/firebase/firebase_database_service.dart';
 import 'package:shoesly/core/responsive.dart';
 import 'package:shoesly/core/routes.dart';
 import 'package:shoesly/core/theme/app_colors.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
 import 'package:shoesly/core/utlis/dummy_data.dart';
+import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart';
 import 'package:shoesly/feature/discover/presentation/widgets/primary_button_widget.dart';
 import '../widgets/product_item_widget.dart';
 
@@ -39,8 +40,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     text: "filter",
                     iconRequired: true,
                     onPressed: () async {
-                      // Navigator.pushNamed(context, AppRoutes.productFilter);
-                      await FirebaseDatabaseService().getRequests();
+                      Navigator.pushNamed(context, AppRoutes.productFilter);
+                      // await FirebaseDatabaseService().getRequests();
                     },
                   ),
                 ),
@@ -114,11 +115,27 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: CategoryListWidget(
-                    list: DummyData.categoryList,
-                  ),
+                BlocBuilder<DiscoverCubit, DiscoverState>(
+                  builder: (context, state) {
+                    return Expanded(
+                      flex: 3,
+                      child: ListView.separated(
+                        padding: const EdgeInsets.only(left: 14),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => CategoryItem(
+                          isSelected: index == state.categoryIndex,
+                          text: DummyData.categoryList[index],
+                          onPressed: () {
+                            context.read<DiscoverCubit>().selectCategory(index);
+                          },
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 4),
+                        itemCount: DummyData.categoryList.length,
+                      ),
+                    );
+                  },
                 ),
                 Flexible(
                   flex: 40,
@@ -155,36 +172,31 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 }
 
-class CategoryListWidget extends StatelessWidget {
-  final List<String> list;
-  const CategoryListWidget({
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({
     super.key,
-    required this.list,
+    required this.text,
+    required this.isSelected,
+    required this.onPressed,
   });
+
+  final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) => Padding(
-        padding:
-            index == 0 ? const EdgeInsets.only(left: 14.0) : EdgeInsets.zero,
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            list[index],
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: index == 0
-                      ? AppColors.selectedTextColor
-                      : AppColors.unselectedTextColor,
-                  fontSize: FontSize.s20,
-                ),
-          ),
-        ),
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              color: isSelected
+                  ? AppColors.selectedTextColor
+                  : AppColors.unselectedTextColor,
+              fontSize: FontSize.s20,
+            ),
       ),
-      separatorBuilder: (context, index) => const SizedBox(width: 4),
-      itemCount: list.length,
     );
   }
 }
