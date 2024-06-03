@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoesly/core/responsive.dart';
-import 'package:shoesly/core/theme/font_manager.dart';
-import 'package:shoesly/core/constants/dummy_data.dart';
 
-import '../../../../core/widgets/category_item_widget.dart';
-import '../../../../core/widgets/comment_item_widget.dart';
+import '../../../../core/core.dart';
 
 class ProductReviewPage extends StatefulWidget {
   const ProductReviewPage({super.key});
