@@ -8,17 +8,20 @@ class ProductModel {
   String? brandLogo;
   String? image;
   List<Review>? review;
+  int? cartQuantity;
 
-  ProductModel(
-      {this.name,
-      this.brand,
-      this.rating,
-      this.description,
-      this.size,
-      this.price,
-      this.brandLogo,
-      this.image,
-      this.review});
+  ProductModel({
+    this.name,
+    this.brand,
+    this.rating,
+    this.description,
+    this.size,
+    this.price,
+    this.brandLogo,
+    this.image,
+    this.review,
+    this.cartQuantity,
+  });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -49,6 +52,9 @@ class ProductModel {
     data['image'] = image;
     if (review != null) {
       data['review'] = review!.map((v) => v.toJson()).toList();
+    }
+    if (cartQuantity != null) {
+      data['quantity'] = cartQuantity;
     }
     return data;
   }

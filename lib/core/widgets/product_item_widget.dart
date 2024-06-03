@@ -52,7 +52,7 @@ class ProductItem extends StatelessWidget {
                               : double.infinity,
                           padding: const EdgeInsets.only(top: 30),
                           child: Hero(
-                            tag: "${product.name ?? 0}${product.price ?? 0}",
+                            tag: "${product.name ?? 0}${product.brand ?? 0}",
                             child: Image.network(
                               productList[index].image ?? "",
                             ),
@@ -127,44 +127,44 @@ class ProductItem extends StatelessWidget {
   }
 }
 
-class ProductItemModel {
-  final int? id;
-  final String? name;
-  final double? rating;
-  final double? reviewCount;
-  final double? price;
-  final String? image;
-  final String? logo;
-  final String? descrption;
-  final List<double>? size;
-  final List<ProductReviewModel>? reviewList;
+// class ProductItemModel {
+//   final int? id;
+//   final String? name;
+//   final double? rating;
+//   final double? reviewCount;
+//   final double? price;
+//   final String? image;
+//   final String? logo;
+//   final String? descrption;
+//   final List<double>? size;
+//   final List<ProductReviewModel>? reviewList;
 
-  ProductItemModel({
-    this.reviewList,
-    this.size,
-    this.descrption,
-    required this.id,
-    required this.name,
-    required this.rating,
-    required this.reviewCount,
-    required this.price,
-    required this.image,
-    required this.logo,
-  });
-}
+//   ProductItemModel({
+//     this.reviewList,
+//     this.size,
+//     this.descrption,
+//     required this.id,
+//     required this.name,
+//     required this.rating,
+//     required this.reviewCount,
+//     required this.price,
+//     required this.image,
+//     required this.logo,
+//   });
+// }
 
-class ProductReviewModel {
-  final String? image;
-  final String? name;
-  final String? comment;
-  final int? starCount;
-  final String date;
+// class ProductReviewModel {
+//   final String? image;
+//   final String? name;
+//   final String? comment;
+//   final int? starCount;
+//   final String date;
 
-  ProductReviewModel({
-    required this.image,
-    required this.name,
-    required this.comment,
-    required this.starCount,
-    this.date = "Today",
-  });
-}
+//   ProductReviewModel({
+//     required this.image,
+//     required this.name,
+//     required this.comment,
+//     required this.starCount,
+//     this.date = "Today",
+//   });
+// }

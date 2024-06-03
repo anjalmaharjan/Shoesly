@@ -19,6 +19,8 @@ mixin _$ProductDetailState {
   int get shoeSize => throw _privateConstructorUsedError;
   bool get addedToCart => throw _privateConstructorUsedError;
   int get selectedColor => throw _privateConstructorUsedError;
+  int? get quantity => throw _privateConstructorUsedError;
+  double? get totalPrice => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductDetailStateCopyWith<ProductDetailState> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $ProductDetailStateCopyWith<$Res> {
           ProductDetailState value, $Res Function(ProductDetailState) then) =
       _$ProductDetailStateCopyWithImpl<$Res, ProductDetailState>;
   @useResult
-  $Res call({int shoeSize, bool addedToCart, int selectedColor});
+  $Res call(
+      {int shoeSize,
+      bool addedToCart,
+      int selectedColor,
+      int? quantity,
+      double? totalPrice});
 }
 
 /// @nodoc
@@ -50,6 +57,8 @@ class _$ProductDetailStateCopyWithImpl<$Res, $Val extends ProductDetailState>
     Object? shoeSize = null,
     Object? addedToCart = null,
     Object? selectedColor = null,
+    Object? quantity = freezed,
+    Object? totalPrice = freezed,
   }) {
     return _then(_value.copyWith(
       shoeSize: null == shoeSize
@@ -64,6 +73,14 @@ class _$ProductDetailStateCopyWithImpl<$Res, $Val extends ProductDetailState>
           ? _value.selectedColor
           : selectedColor // ignore: cast_nullable_to_non_nullable
               as int,
+      quantity: freezed == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalPrice: freezed == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$ProductDetailStateImplCopyWith<$Res>
       __$$ProductDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int shoeSize, bool addedToCart, int selectedColor});
+  $Res call(
+      {int shoeSize,
+      bool addedToCart,
+      int selectedColor,
+      int? quantity,
+      double? totalPrice});
 }
 
 /// @nodoc
@@ -93,6 +115,8 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
     Object? shoeSize = null,
     Object? addedToCart = null,
     Object? selectedColor = null,
+    Object? quantity = freezed,
+    Object? totalPrice = freezed,
   }) {
     return _then(_$ProductDetailStateImpl(
       shoeSize: null == shoeSize
@@ -107,6 +131,14 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
           ? _value.selectedColor
           : selectedColor // ignore: cast_nullable_to_non_nullable
               as int,
+      quantity: freezed == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalPrice: freezed == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -115,7 +147,11 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
 
 class _$ProductDetailStateImpl extends _ProductDetailState {
   const _$ProductDetailStateImpl(
-      {this.shoeSize = 0, this.addedToCart = false, this.selectedColor = 1})
+      {this.shoeSize = 0,
+      this.addedToCart = false,
+      this.selectedColor = 1,
+      this.quantity = 1,
+      this.totalPrice = 0.0})
       : super._();
 
   @override
@@ -127,10 +163,16 @@ class _$ProductDetailStateImpl extends _ProductDetailState {
   @override
   @JsonKey()
   final int selectedColor;
+  @override
+  @JsonKey()
+  final int? quantity;
+  @override
+  @JsonKey()
+  final double? totalPrice;
 
   @override
   String toString() {
-    return 'ProductDetailState(shoeSize: $shoeSize, addedToCart: $addedToCart, selectedColor: $selectedColor)';
+    return 'ProductDetailState(shoeSize: $shoeSize, addedToCart: $addedToCart, selectedColor: $selectedColor, quantity: $quantity, totalPrice: $totalPrice)';
   }
 
   @override
@@ -143,12 +185,16 @@ class _$ProductDetailStateImpl extends _ProductDetailState {
             (identical(other.addedToCart, addedToCart) ||
                 other.addedToCart == addedToCart) &&
             (identical(other.selectedColor, selectedColor) ||
-                other.selectedColor == selectedColor));
+                other.selectedColor == selectedColor) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, shoeSize, addedToCart, selectedColor);
+  int get hashCode => Object.hash(
+      runtimeType, shoeSize, addedToCart, selectedColor, quantity, totalPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -162,7 +208,9 @@ abstract class _ProductDetailState extends ProductDetailState {
   const factory _ProductDetailState(
       {final int shoeSize,
       final bool addedToCart,
-      final int selectedColor}) = _$ProductDetailStateImpl;
+      final int selectedColor,
+      final int? quantity,
+      final double? totalPrice}) = _$ProductDetailStateImpl;
   const _ProductDetailState._() : super._();
 
   @override
@@ -171,6 +219,10 @@ abstract class _ProductDetailState extends ProductDetailState {
   bool get addedToCart;
   @override
   int get selectedColor;
+  @override
+  int? get quantity;
+  @override
+  double? get totalPrice;
   @override
   @JsonKey(ignore: true)
   _$$ProductDetailStateImplCopyWith<_$ProductDetailStateImpl> get copyWith =>

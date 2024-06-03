@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesly/core/product_model.dart';
 
 import '../../../../core/core.dart';
 
@@ -7,16 +8,11 @@ class CartItemWidget extends StatelessWidget {
   const CartItemWidget({
     super.key,
     required this.textTheme,
-    required this.productName,
-    required this.brandName,
-    required this.color,
-    required this.size,
+    required this.productModel,
   });
 
   final TextTheme textTheme;
-
-  final String productName, brandName, color, size;
-
+  final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,6 +27,7 @@ class CartItemWidget extends StatelessWidget {
             ),
             height: 88,
             width: 88,
+            child: Image.network(productModel.image ?? ''),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -39,7 +36,7 @@ class CartItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  productName,
+                  productModel.name ?? "N/A",
                   style:
                       textTheme.titleMedium?.copyWith(fontSize: FontSize.s16),
                 ),
@@ -48,19 +45,19 @@ class CartItemWidget extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '$brandName. ',
+                        text: '${productModel.brand}',
                         style: textTheme.titleSmall!.copyWith(
                           color: AppColors.cartSubTextColor,
                         ),
                       ),
                       TextSpan(
-                        text: '$color. ',
+                        text: "${productModel.name}",
                         style: textTheme.titleSmall!.copyWith(
                           color: AppColors.cartSubTextColor,
                         ),
                       ),
                       TextSpan(
-                        text: '$size ',
+                        text: "${productModel.name}",
                         style: textTheme.titleSmall!.copyWith(
                           color: AppColors.cartSubTextColor,
                         ),
@@ -75,7 +72,7 @@ class CartItemWidget extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Text(
-                        "\$235.00",
+                        "\$${"${productModel.price}"}",
                         style: textTheme.titleLarge
                             ?.copyWith(fontSize: FontSize.s14),
                       ),
@@ -89,7 +86,7 @@ class CartItemWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "1",
+                      "${productModel.cartQuantity}",
                       style: textTheme.titleLarge
                           ?.copyWith(fontSize: FontSize.s14),
                     ),

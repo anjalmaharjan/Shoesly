@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/dummy_data.dart';
 import '../../../../core/widgets/product_item_widget.dart';
 
 class DiscoverPageTablet extends StatelessWidget {

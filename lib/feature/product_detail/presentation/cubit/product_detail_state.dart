@@ -7,5 +7,7 @@ class ProductDetailState with _$ProductDetailState {
     @Default(0) int shoeSize,
     @Default(false) bool addedToCart,
     @Default(1) int selectedColor,
+    @Default(1) int? quantity,
+    @Default(0.0) double? totalPrice,
   }) = _ProductDetailState;
 }

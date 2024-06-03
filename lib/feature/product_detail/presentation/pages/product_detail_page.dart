@@ -116,11 +116,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             builder: (BuildContext context) {
               return BlocBuilder<ProductDetailCubit, ProductDetailState>(
                 builder: (context, state) {
-                  return AddToCartWidget(isAddedToCard: state.addedToCart);
+                  return AddToCartWidget(
+                    isAddedToCard: state.addedToCart,
+                    product: product,
+                  );
                 },
               );
             },
-          ).then((_) => context.read<ProductDetailCubit>().addToCart(false));
+          ).then((_) => context.read<ProductDetailCubit>().isCartAdded(false));
         },
         totalCost: product.price.toString(),
       ),
