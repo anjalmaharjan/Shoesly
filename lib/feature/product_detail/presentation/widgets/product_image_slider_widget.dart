@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 
 import '../../../../core/core.dart';
+import '../../../../core/product_model.dart';
 
 class ProductImageSliderWidget extends StatelessWidget {
   const ProductImageSliderWidget({
@@ -12,7 +13,7 @@ class ProductImageSliderWidget extends StatelessWidget {
     required this.product,
   });
 
-  final ProductItemModel product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,8 @@ class ProductImageSliderWidget extends StatelessWidget {
                 SizedBox(
                   height: 178,
                   child: Hero(
-                    tag: "${product.name}${product.id ?? 0}",
-                    child: Image.asset(
+                    tag: "${product.name}${product.price ?? 0}",
+                    child: Image.network(
                       product.image ?? "",
                       fit: BoxFit.cover,
                     ),

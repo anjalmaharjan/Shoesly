@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/feature/product_review/presentation/cubit/product_review_cubit.dart';
 
 import '../../../../core/core.dart';
+import '../../../../core/product_model.dart';
 
 class ProductReviewPage extends StatefulWidget {
   const ProductReviewPage({super.key});
@@ -24,6 +25,8 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)?.settings.arguments as ProductModel;
+
     return BlocProvider(
       create: (context) => ProductReviewCubit(),
       child: Scaffold(
@@ -94,14 +97,14 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return CommentItemWidget(
-                      commentModel: DummyData.reviewList[index],
+                      commentModel: product.review?[index],
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
                       const SizedBox(
                     height: 30,
                   ),
-                  itemCount: DummyData.reviewList.length,
+                  itemCount: product.review?.length ?? 0,
                 ),
               )
             ],
