@@ -18,3 +18,4 @@ export 'package:shoesly/core/widgets/comment_item_widget.dart';
 export 'package:shoesly/core/widgets/custom_bottom_nav_bar_widget.dart';
 export 'package:shoesly/core/widgets/primary_button_widget.dart';
 export 'package:shoesly/core/widgets/product_item_widget.dart';
+export 'package:shoesly/core/widgets/rating_widget.dart';

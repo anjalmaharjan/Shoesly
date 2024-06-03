@@ -14,4 +14,8 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
   void addToCart(bool addToCart) {
     emit(state.copyWith(addedToCart: addToCart));
   }
+
+  void selectProductColor(int colorIndex) {
+    emit(state.copyWith(selectedColor: colorIndex));
+  }
 }

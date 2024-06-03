@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoesly/core/widgets/product_item_widget.dart';
-
-import '../theme/app_colors.dart';
-import '../theme/font_manager.dart';
+import '../core.dart';
 
 class CommentItemWidget extends StatelessWidget {
   const CommentItemWidget({
@@ -45,7 +41,7 @@ class CommentItemWidget extends StatelessWidget {
                         textTheme.titleMedium!.copyWith(fontSize: FontSize.s16),
                   ),
                   Text(
-                    commentModel?.name ?? "Today",
+                    commentModel?.date ?? "N/A",
                     style: textTheme.titleSmall!.copyWith(
                       fontSize: FontSize.s12,
                       color: AppColors.unselectedTextColor,
@@ -54,24 +50,10 @@ class CommentItemWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 6),
-              Row(
-                children: [
-                  for (int i = 0; i < 5; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: SvgPicture.asset(
-                        i != 0
-                            ? "assets/svgs/star.svg"
-                            : "assets/svgs/light_star.svg",
-                        semanticsLabel: 'Star',
-                      ),
-                    ),
-                ],
-              ),
+              const RatingStarWidget(rating: 4),
               const SizedBox(height: 10),
               Text(
-                commentModel?.comment ??
-                    "Perfect for keeping your feet dry and warm in damp conditions. ",
+                commentModel?.comment ?? "N/A ",
                 style: textTheme.titleSmall!.copyWith(
                   height: 2,
                   fontSize: FontSize.s12,

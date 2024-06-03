@@ -157,11 +157,13 @@ class ProductReviewModel {
   final String? name;
   final String? comment;
   final int? starCount;
+  final String date;
 
   ProductReviewModel({
     required this.image,
     required this.name,
     required this.comment,
     required this.starCount,
+    this.date = "Today",
   });
 }

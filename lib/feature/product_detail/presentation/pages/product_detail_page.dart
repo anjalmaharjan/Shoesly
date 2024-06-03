@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail_cubit.dart';
-
 import '../../../../core/core.dart';
 import '../widgets/add_cart_bottom_widget.dart';
 import '../widgets/product_image_slider_widget.dart';
@@ -29,26 +27,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           shrinkWrap: true,
           padding: const EdgeInsets.fromLTRB(30, 10, 30, 30),
           children: [
-            ProductImageSliderWidget(product: product),
+            ProductImageSliderWidget(
+              product: product,
+            ),
             const SizedBox(height: 30),
             Text(
               product.name ?? "N/A",
-              style: textTheme.titleLarge!.copyWith(fontSize: FontSize.s20),
+              style: textTheme.titleLarge!.copyWith(
+                fontSize: FontSize.s20,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 30),
               child: Row(
                 children: [
-                  for (int i = 0; i < 5; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: SvgPicture.asset(
-                        i != product.rating
-                            ? "assets/svgs/star.svg"
-                            : "assets/svgs/light_star.svg",
-                        semanticsLabel: 'Star',
-                      ),
-                    ),
+                  const RatingStarWidget(rating: 4),
                   RichText(
                     text: TextSpan(
                       text: '',

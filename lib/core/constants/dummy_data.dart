@@ -111,48 +111,35 @@ class DummyData {
       name: name,
       comment: comment,
       starCount: starCount,
+      date: "Today",
     ),
     ProductReviewModel(
       image: networkImage,
       name: name,
       comment: comment,
       starCount: starCount,
+      date: "Yesterday",
     ),
     ProductReviewModel(
       image: networkImage,
       name: name,
       comment: comment,
       starCount: starCount,
+      date: "Yesterday",
     ),
     ProductReviewModel(
       image: networkImage,
       name: name,
       comment: comment,
       starCount: starCount,
+      date: "Today",
     ),
     ProductReviewModel(
       image: networkImage,
       name: name,
       comment: comment,
       starCount: starCount,
-    ),
-    ProductReviewModel(
-      image: networkImage,
-      name: name,
-      comment: comment,
-      starCount: starCount,
-    ),
-    ProductReviewModel(
-      image: networkImage,
-      name: name,
-      comment: comment,
-      starCount: starCount,
-    ),
-    ProductReviewModel(
-      image: networkImage,
-      name: name,
-      comment: comment,
-      starCount: starCount,
+      date: "Today",
     ),
   ];
 }

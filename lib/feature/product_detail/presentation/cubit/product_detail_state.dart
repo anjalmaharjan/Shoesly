@@ -6,5 +6,6 @@ class ProductDetailState with _$ProductDetailState {
   const factory ProductDetailState({
     @Default(0) int shoeSize,
     @Default(false) bool addedToCart,
+    @Default(1) int selectedColor,
   }) = _ProductDetailState;
 }
