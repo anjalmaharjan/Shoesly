@@ -40,4 +40,10 @@ class ProductDetailCubit extends Cubit<ProductDetailState> {
     double totalPrice = price * quantity;
     emit(state.copyWith(totalPrice: totalPrice));
   }
+
+  void resetQuantityAndTotalPrice() {
+    emit(
+      state.copyWith(quantity: 1, totalPrice: 0.0),
+    );
+  }
 }

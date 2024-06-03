@@ -84,11 +84,12 @@ class _CartPageState extends State<CartPage> {
           return CustomBottomNavBar(
             rightButtonText: "checkout",
             rightButtonOnPressed: () {
-              Navigator.pushNamed(context, AppRoutes.orderSummary);
+              Navigator.pushNamed(context, AppRoutes.orderSummary,
+                  arguments: state.cartProductList);
             },
             isleftButtonRequired: false,
             title: "Grand Total",
-            totalCost: state.totalPrice.toString(),
+            totalCost: (state.totalPrice ?? 0.0).toString(),
           );
         },
       ),

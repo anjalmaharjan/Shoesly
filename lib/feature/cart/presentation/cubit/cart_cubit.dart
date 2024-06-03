@@ -12,10 +12,48 @@ class CartCubit extends Cubit<CartState> {
   List<ProductModel> productList = [];
 
   void addToCartList(ProductModel productModel) {
-    productList.add(productModel);
+    bool productExists = false;
+    for (var product in productList) {
+      if (product.id == productModel.id) {
+        product.cartQuantity =
+            (product.cartQuantity ?? 0) + (productModel.cartQuantity ?? 1);
+        productExists = true;
+        break;
+      }
+    }
+
+    if (!productExists) {
+      productList.add(productModel);
+    }
+
     double totalPrice = calculateTotalPrice(productList);
-    print(totalPrice);
     emit(state.copyWith(cartProductList: productList, totalPrice: totalPrice));
+  }
+
+  double calculateTotalPrice(List<ProductModel> products) {
+    double totalPrice = 0;
+    for (var product in products) {
+      final price = product.price ?? 0;
+      final quantity = product.cartQuantity ?? 0;
+      totalPrice += price * quantity;
+    }
+    return totalPrice;
+  }
+
+  void incrementQuantity(ProductModel product) {
+    product.cartQuantity = (product.cartQuantity ?? 0) + 1;
+    double totalPrice = calculateTotalPrice(productList);
+    emit(state.copyWith(
+        cartProductList: List.from(productList), totalPrice: totalPrice));
+  }
+
+  void decrementQuantity(ProductModel product) {
+    if ((product.cartQuantity ?? 0) > 1) {
+      product.cartQuantity = (product.cartQuantity ?? 0) - 1;
+      double totalPrice = calculateTotalPrice(productList);
+      emit(state.copyWith(
+          cartProductList: List.from(productList), totalPrice: totalPrice));
+    }
   }
 
   void removeFromCartList(int index) {
@@ -25,13 +63,5 @@ class CartCubit extends Cubit<CartState> {
       emit(
           state.copyWith(cartProductList: productList, totalPrice: totalPrice));
     }
-  }
-
-  double calculateTotalPrice(List<ProductModel> productList) {
-    return productList.fold(
-        0,
-        (sum, product) =>
-            sum +
-            (product.price ?? 0 * double.parse("${product.cartQuantity}")));
   }
 }

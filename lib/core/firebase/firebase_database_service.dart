@@ -12,10 +12,16 @@ class FirebaseDatabaseService {
 
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
+  Map brandLogo = {
+    "addidas":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FSubtract.svg?alt=media&token=b01ce6a0-1369-46dc-85f1-5129445f33c8",
+  };
+
   Future<void> getRequests() async {
     try {
       await firebaseFirestore.collection('shoes').add(
         {
+          "id": 1,
           "name": "Jordan Max",
           "brand": "Addidas",
           "rating": 4,
@@ -23,6 +29,7 @@ class FirebaseDatabaseService {
           "size": [39, 40, 41, 42, 43],
           "price": 235.00,
           "brandLogo": "",
+          "shippingCost": 255,
           "image":
               "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/shoes_images%2Fimage%2027.png?alt=media&token=b109e26a-2da9-4cc6-9ec7-9850cf4f04f2",
           "review": [

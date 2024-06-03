@@ -142,6 +142,23 @@ class AddToCartWidget extends StatelessWidget {
                       rightButtonText: "add to cart",
                       rightButtonOnPressed: () {
                         context.read<ProductDetailCubit>().isCartAdded(true);
+                        BlocProvider.of<CartCubit>(context).addToCartList(
+                          ProductModel(
+                            id: product.id,
+                            price: product.price,
+                            brand: product.brand,
+                            rating: product.rating,
+                            brandLogo: product.brand,
+                            cartQuantity: state.quantity,
+                            description: product.description,
+                            image: product.image,
+                            name: product.name,
+                            review: product.review,
+                            size: product.size,
+                            totalPrice: state.totalPrice,
+                            selectedSize: product.selectedSize,
+                          ),
+                        );
                       },
                       isBoxShadowRequired: false,
                     );
@@ -191,22 +208,6 @@ class AddToCartWidget extends StatelessWidget {
                       rightButtonOnPressed: () async {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, AppRoutes.cart);
-                        BlocProvider.of<CartCubit>(context).addToCartList(
-                          ProductModel(
-                            price: state.totalPrice == 0.0
-                                ? product.price
-                                : state.totalPrice,
-                            brand: product.brand,
-                            rating: product.rating,
-                            brandLogo: product.brand,
-                            cartQuantity: state.quantity,
-                            description: product.description,
-                            image: product.image,
-                            name: product.name,
-                            review: product.review,
-                            size: product.size,
-                          ),
-                        );
                       },
                       isBoxShadowRequired: false,
                     );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/enum/enum.dart';
 import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 import '../../../../core/routes.dart';
 import '../../../../core/widgets/category_item_widget.dart';
 import '../../../../core/widgets/product_item_widget.dart';
@@ -35,15 +36,21 @@ class DisoverPageMobile extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushNamed(context, AppRoutes.cart);
                           },
-                          icon: Stack(
-                            children: [
-                              SvgPicture.asset("assets/svgs/bag.svg"),
-                              Positioned(
-                                right: 0,
-                                top: 3,
-                                child: SvgPicture.asset("assets/svgs/dot.svg"),
-                              ),
-                            ],
+                          icon: BlocBuilder<CartCubit, CartState>(
+                            builder: (context, state) {
+                              return Stack(
+                                children: [
+                                  SvgPicture.asset("assets/svgs/bag.svg"),
+                                  if ((state.cartProductList?.length ?? 0) > 0)
+                                    Positioned(
+                                      right: 0,
+                                      top: 3,
+                                      child: SvgPicture.asset(
+                                          "assets/svgs/dot.svg"),
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ],

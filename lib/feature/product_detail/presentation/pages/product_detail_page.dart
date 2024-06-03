@@ -114,6 +114,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
+              context.read<ProductDetailCubit>().resetQuantityAndTotalPrice();
               return BlocBuilder<ProductDetailCubit, ProductDetailState>(
                 builder: (context, state) {
                   return AddToCartWidget(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 
 import '../../../../core/core.dart';
 
@@ -65,38 +67,51 @@ class CartItemWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        "\$${"${productModel.price}"}",
-                        style: textTheme.titleLarge
-                            ?.copyWith(fontSize: FontSize.s14),
-                      ),
-                    ),
-                    Flexible(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          "assets/svgs/minus_cirlce.svg",
+                BlocBuilder<CartCubit, CartState>(
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            "\$${"${(productModel.price ?? 0) * (productModel.cartQuantity ?? 0)}"}",
+                            style: textTheme.titleLarge
+                                ?.copyWith(fontSize: FontSize.s14),
+                          ),
                         ),
-                      ),
-                    ),
-                    Text(
-                      "${productModel.cartQuantity}",
-                      style: textTheme.titleLarge
-                          ?.copyWith(fontSize: FontSize.s14),
-                    ),
-                    Flexible(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset("assets/svgs/add-circle.svg"),
-                      ),
-                    ),
-                  ],
+                        Flexible(
+                          child: IconButton(
+                            onPressed: () {
+                              context
+                                  .read<CartCubit>()
+                                  .decrementQuantity(productModel);
+                            },
+                            icon: SvgPicture.asset(
+                              "assets/svgs/minus_cirlce.svg",
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "${productModel.cartQuantity}",
+                          style: textTheme.titleLarge
+                              ?.copyWith(fontSize: FontSize.s14),
+                        ),
+                        Flexible(
+                          child: IconButton(
+                            onPressed: () {
+                              context
+                                  .read<CartCubit>()
+                                  .incrementQuantity(productModel);
+                            },
+                            icon:
+                                SvgPicture.asset("assets/svgs/add-circle.svg"),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 )
               ],
             ),
