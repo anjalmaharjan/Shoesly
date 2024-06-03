@@ -4,9 +4,9 @@ import 'package:shoesly/core/extensions/string_extension.dart';
 import 'package:shoesly/core/responsive.dart';
 import 'package:shoesly/core/theme/app_colors.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
-import 'package:shoesly/core/utlis/filter_constants.dart';
+import 'package:shoesly/core/constants/filter_constants.dart';
 import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
-import '../../../product_detail/presentation/pages/product_detail_page.dart';
+import '../../../../core/widgets/custom_bottom_nav_bar_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductFilterPage extends StatefulWidget {

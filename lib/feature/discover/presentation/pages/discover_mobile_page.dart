@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/routes.dart';
-import '../../../../core/utlis/dummy_data.dart';
+import '../../../../core/constants/dummy_data.dart';
 import '../../../../core/widgets/category_item_widget.dart';
 import '../../../../core/widgets/product_item_widget.dart';
 import '../cubit/discover_cubit.dart';

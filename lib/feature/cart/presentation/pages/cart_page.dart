@@ -5,7 +5,8 @@ import 'package:shoesly/core/responsive.dart';
 import 'package:shoesly/core/routes.dart';
 import 'package:shoesly/core/theme/app_colors.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
-import 'package:shoesly/feature/product_detail/presentation/pages/product_detail_page.dart';
+
+import '../../../../core/widgets/custom_bottom_nav_bar_widget.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});

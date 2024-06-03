@@ -3,8 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/responsive.dart';
 import 'package:shoesly/core/theme/app_colors.dart';
 import 'package:shoesly/core/theme/font_manager.dart';
-
-import '../../../product_detail/presentation/pages/product_detail_page.dart';
+import '../../../../core/widgets/custom_bottom_nav_bar_widget.dart';
 
 class OrderSummaryPage extends StatefulWidget {
   const OrderSummaryPage({super.key});
