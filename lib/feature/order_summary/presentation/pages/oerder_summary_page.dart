@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shoesly/core/responsive.dart';
-import 'package:shoesly/core/theme/app_colors.dart';
-import 'package:shoesly/core/theme/font_manager.dart';
-import '../../../../core/widgets/custom_bottom_nav_bar_widget.dart';
+import '../../../../core/core.dart';
+import '../widgets/information_item_widget.dart';
+import '../widgets/order_detail_widget.dart';
+import '../widgets/payment_detail_tile_widget.dart';
 
 class OrderSummaryPage extends StatefulWidget {
   const OrderSummaryPage({super.key});
@@ -115,115 +114,6 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
         isleftButtonRequired: false,
         title: "Grand Total",
         totalCost: "705.00",
-      ),
-    );
-  }
-}
-
-class PaymentDetailTile extends StatelessWidget {
-  const PaymentDetailTile({
-    super.key,
-    required this.textTheme,
-    required this.title,
-    required this.price,
-  });
-
-  final TextTheme textTheme;
-  final String title, price;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
-      contentPadding: EdgeInsets.zero,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: textTheme.titleSmall?.copyWith(fontSize: FontSize.s14),
-          ),
-          Text(
-            "\$$price",
-            style: textTheme.titleLarge?.copyWith(fontSize: FontSize.s14),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class OrderDetailTile extends StatelessWidget {
-  const OrderDetailTile({
-    super.key,
-    required this.textTheme,
-    required this.title,
-    required this.subTitle,
-    required this.onTapTile,
-    required this.price,
-  });
-
-  final TextTheme textTheme;
-  final String title, subTitle, price;
-  final VoidCallback onTapTile;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        title,
-        style:
-            textTheme.titleLarge?.copyWith(fontSize: FontSize.s14, height: 3),
-      ),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            subTitle,
-            style: textTheme.titleSmall?.copyWith(fontSize: FontSize.s14),
-          ),
-          Text(
-            "\$$price",
-            style: textTheme.titleLarge?.copyWith(fontSize: FontSize.s14),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InformationItem extends StatelessWidget {
-  const InformationItem({
-    super.key,
-    required this.textTheme,
-    required this.title,
-    required this.subTitle,
-    required this.onTapTile,
-    required this.onTapIcon,
-  });
-
-  final TextTheme textTheme;
-  final String title, subTitle;
-  final VoidCallback onTapTile, onTapIcon;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTapTile,
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        title,
-        style:
-            textTheme.titleLarge?.copyWith(fontSize: FontSize.s14, height: 3),
-      ),
-      subtitle: Text(
-        subTitle,
-        style: textTheme.titleSmall?.copyWith(fontSize: FontSize.s14),
-      ),
-      trailing: IconButton(
-        onPressed: onTapIcon,
-        icon: SvgPicture.asset("assets/svgs/arrow_right.svg"),
       ),
     );
   }

@@ -146,7 +146,8 @@ class AddToCartWidget extends StatelessWidget {
                   isleftButtonRequired: true,
                   title: "Total Price",
                   rightButtonText: "to cart",
-                  rightButtonOnPressed: () {
+                  rightButtonOnPressed: () async {
+                    Navigator.pop(context);
                     Navigator.pushNamed(context, AppRoutes.cart);
                   },
                   isBoxShadowRequired: false,
