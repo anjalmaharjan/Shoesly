@@ -9,14 +9,23 @@ part 'order_summary_cubit.freezed.dart';
 class OrderSummaryCubit extends Cubit<OrderSummaryState> {
   OrderSummaryCubit() : super(const OrderSummaryState());
 
-  void totalShippingCost(List<ProductModel> products) {
-    double totalPrice = 0;
-    for (var product in products) {
-      final price = product.price ?? 0;
-      final quantity = product.cartQuantity ?? 0;
-      final shippingCost = product.shippingCost ?? 0;
-      totalPrice += (price * quantity) + shippingCost;
-    }
-    emit(state.copyWith(totalOrderCost: totalPrice));
+  double totalShippingCost(List<ProductModel> products) {
+    double totalCost = products.fold(0.0,
+        (sum, product) => sum + double.parse(product.shippingCost.toString()));
+    emit(state.copyWith(totalShippingCost: totalCost));
+    return totalCost;
+  }
+
+  double subTotalCost(List<ProductModel> products) {
+    double totalCost = products.fold(0.0, (sum, product) {
+      return sum + (product.price ?? 0) * (product.cartQuantity ?? 0.0);
+    });
+    emit(state.copyWith(subTotalCost: totalCost));
+    return totalCost;
+  }
+
+  void grandTotal(List<ProductModel> products) {
+    final grandTotal = subTotalCost(products) + totalShippingCost(products);
+    emit(state.copyWith(totalOrderCost: grandTotal));
   }
 }

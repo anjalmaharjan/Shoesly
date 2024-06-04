@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shoesly/feature/order_summary/presentation/cubit/order_summary_cubit.dart';
 import '../../../../core/core.dart';
 import '../../../../core/product_model.dart';
@@ -16,12 +17,26 @@ class OrderSummaryPage extends StatefulWidget {
 
 class _OrderSummaryPageState extends State<OrderSummaryPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final arguments =
-        ModalRoute.of(context)?.settings.arguments as List<ProductModel>?;
+        ModalRoute.of(context)?.settings.arguments as List<ProductModel>;
+
     return BlocProvider(
-      create: (context) => OrderSummaryCubit(),
+      create: (context) => OrderSummaryCubit()
+        ..totalShippingCost(arguments)
+        ..subTotalCost(arguments)
+        ..grandTotal(arguments),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -67,23 +82,23 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                 "Order Detail",
                 style: textTheme.titleLarge?.copyWith(fontSize: FontSize.s18),
               ),
-              ListView.builder(
-                itemCount: arguments?.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  context
-                      .read<OrderSummaryCubit>()
-                      .totalShippingCost(arguments!);
-
-                  return OrderDetailTile(
-                    textTheme: textTheme,
-                    title: arguments[index].name ?? "N/A",
-                    subTitle:
-                        "${arguments[index].brand} . Red . ${arguments[index].selectedSize ?? 39} . Qty ${arguments[index].cartQuantity ?? 0}",
-                    price:
-                        "${(arguments[index].price ?? 0) * (arguments[index].cartQuantity ?? 0)}",
-                    onTapTile: () {},
+              BlocBuilder<CartCubit, CartState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.cartProductList?.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return OrderDetailTile(
+                        textTheme: textTheme,
+                        title: state.cartProductList?[index].name ?? "N/A",
+                        subTitle:
+                            "${state.cartProductList?[index].brand} . Red . ${state.cartProductList?[index].selectedSize ?? 39} . Qty ${state.cartProductList?[index].cartQuantity ?? 0}",
+                        price:
+                            "${(state.cartProductList?[index].price ?? 0) * (state.cartProductList?[index].cartQuantity ?? 0)}",
+                        onTapTile: () {},
+                      );
+                    },
                   );
                 },
               ),
@@ -93,21 +108,29 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                 style: textTheme.titleLarge?.copyWith(fontSize: FontSize.s18),
               ),
               const SizedBox(height: 10),
-              PaymentDetailTile(
-                textTheme: textTheme,
-                title: "Sub Total",
-                price: "${705.00}",
-              ),
-              PaymentDetailTile(
-                textTheme: textTheme,
-                title: "Shipping",
-                price: "705.00",
-              ),
-              Divider(color: AppColors.dividerColor),
-              PaymentDetailTile(
-                textTheme: textTheme,
-                title: "Total Order",
-                price: "705.00",
+              BlocBuilder<OrderSummaryCubit, OrderSummaryState>(
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      PaymentDetailTile(
+                        textTheme: textTheme,
+                        title: "Sub Total",
+                        price: "${state.subTotalCost}",
+                      ),
+                      PaymentDetailTile(
+                        textTheme: textTheme,
+                        title: "Shipping",
+                        price: "${state.totalShippingCost}",
+                      ),
+                      Divider(color: AppColors.dividerColor),
+                      PaymentDetailTile(
+                        textTheme: textTheme,
+                        title: "Total Order",
+                        price: "${state.totalOrderCost}",
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
@@ -119,17 +142,17 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
             return CustomBottomNavBar(
               rightButtonText: "payment",
               rightButtonOnPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog.adaptive(
-                    titlePadding: const EdgeInsets.symmetric(vertical: 80),
-                    title: Center(
-                      child: CircularProgressIndicator.adaptive(
-                        backgroundColor: AppColors.selectedTextColor,
-                      ),
-                    ),
-                  ),
-                );
+                // showDialog(
+                //   context: context,
+                //   builder: (context) => AlertDialog.adaptive(
+                //     titlePadding: const EdgeInsets.symmetric(vertical: 80),
+                //     title: Center(
+                //       child: CircularProgressIndicator.adaptive(
+                //         backgroundColor: AppColors.selectedTextColor,
+                //       ),
+                //     ),
+                //   ),
+                // );
               },
               isleftButtonRequired: false,
               title: "Grand Total",

@@ -15,6 +15,16 @@ class FirebaseDatabaseService {
   Map brandLogo = {
     "addidas":
         "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FSubtract.svg?alt=media&token=b01ce6a0-1369-46dc-85f1-5129445f33c8",
+    "reebok":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FVector-1.svg?alt=media&token=94cef8d8-c435-41bf-a0c8-8b878fedbf5c",
+    "jordan":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FBrand.svg?alt=media&token=63de0cd5-a52b-4735-ae46-0a7dada10588",
+    "vans":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FVector-2.svg?alt=media&token=5ee3471b-3180-4e5a-81bf-b127b3913294",
+    "puma":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FVector-3.svg?alt=media&token=cd4fba30-f825-4b6b-9801-6e81ec8302f0",
+    "nike":
+        "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/logo%2FVector.svg?alt=media&token=42cbc347-c43c-4c6d-9a3d-7ab3c9dc34ee"
   };
 
   Future<void> getRequests() async {
@@ -23,12 +33,12 @@ class FirebaseDatabaseService {
         {
           "id": 1,
           "name": "Jordan Max",
-          "brand": "Addidas",
+          "brand": "Reebok",
           "rating": 4,
           "description": "asdfasdfasd",
           "size": [39, 40, 41, 42, 43],
           "price": 235.00,
-          "brandLogo": "",
+          "brandLogo": brandLogo['reebok'],
           "shippingCost": 255,
           "image":
               "https://firebasestorage.googleapis.com/v0/b/shoesly-96419.appspot.com/o/shoes_images%2Fimage%2027.png?alt=media&token=b109e26a-2da9-4cc6-9ec7-9850cf4f04f2",
@@ -57,7 +67,6 @@ class FirebaseDatabaseService {
           ],
         },
       );
-      print("object");
     } catch (e) {
       throw Exception();
     }

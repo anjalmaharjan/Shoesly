@@ -157,6 +157,7 @@ class AddToCartWidget extends StatelessWidget {
                             size: product.size,
                             totalPrice: state.totalPrice,
                             selectedSize: product.selectedSize,
+                            shippingCost: product.shippingCost,
                           ),
                         );
                       },
