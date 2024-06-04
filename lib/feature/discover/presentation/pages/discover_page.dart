@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoesly/core/responsive.dart';
+import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart';
 import 'package:shoesly/feature/discover/presentation/pages/discover_desktop_page.dart';
 import 'package:shoesly/feature/discover/presentation/pages/discover_mobile_page.dart';
 import 'package:shoesly/feature/discover/presentation/pages/discover_tablet_page.dart';
+import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
+import '../../../../core/core.dart';
 import '../widgets/filter_button_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -23,9 +27,21 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Responsive.isMobile(context)
-          ? FilterButton(
-              showFab: _showFab,
-              duration: duration,
+          ? BlocBuilder<DiscoverCubit, DiscoverState>(
+              builder: (context, state) {
+                return FilterButton(
+                  showFab: _showFab,
+                  duration: duration,
+                  onPressed: () {
+                    BlocProvider.of<FilterCubit>(context).resetFilters();
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.productFilter,
+                      arguments: state.productModelList,
+                    );
+                  },
+                );
+              },
             )
           : null,
       body: SafeArea(

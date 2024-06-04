@@ -52,7 +52,8 @@ class ProductItem extends StatelessWidget {
                               : double.infinity,
                           padding: const EdgeInsets.only(top: 30),
                           child: Hero(
-                            tag: "${product?.name ?? 0}${product?.brand ?? 0}",
+                            tag:
+                                "${product?.name ?? 0}${product?.brand ?? 0} ${product?.name ?? 0}${product?.id ?? 0}",
                             child: Image.network(
                               productList?[index].image ?? "",
                             ),

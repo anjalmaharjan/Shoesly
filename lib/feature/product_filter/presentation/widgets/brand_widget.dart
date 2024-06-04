@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../../core/core.dart';
 
 class BrandWidget extends StatelessWidget {
@@ -8,10 +7,15 @@ class BrandWidget extends StatelessWidget {
     super.key,
     required this.textTheme,
     this.isTickRequired = true,
+    required this.productCount,
+    required this.categoryName,
+    required this.brandLogo,
   });
 
   final TextTheme textTheme;
   final bool isTickRequired;
+  final String categoryName, brandLogo;
+  final int productCount;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class BrandWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppColors.itemBackgroundColor,
               ),
-              child: SvgPicture.asset("assets/svgs/star.svg"),
+              child: SvgPicture.network(brandLogo),
             ),
             if (isTickRequired)
               Positioned(
@@ -41,11 +45,11 @@ class BrandWidget extends StatelessWidget {
           ],
         ),
         Text(
-          "Nike",
+          categoryName,
           style: textTheme.titleLarge?.copyWith(fontSize: FontSize.s14),
         ),
         Text(
-          "100 items",
+          "$productCount Items",
           style: textTheme.titleSmall,
         ),
       ],

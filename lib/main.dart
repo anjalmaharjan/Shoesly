@@ -11,6 +11,7 @@ import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart'
 import 'package:shoesly/feature/discover/presentation/pages/discover_page.dart';
 import 'package:shoesly/feature/order_summary/presentation/pages/order_summary_page.dart';
 import 'package:shoesly/feature/product_detail/presentation/pages/product_detail_page.dart';
+import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
 import 'package:shoesly/feature/product_filter/presentation/pages/product_filter_page.dart';
 import 'package:shoesly/feature/product_review/presentation/pages/product_review_page.dart';
 import 'package:shoesly/init_dependencies.dart';
@@ -39,6 +40,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => CartCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FilterCubit()..fetchProductList(),
         ),
       ],
       child: const MyApp(),

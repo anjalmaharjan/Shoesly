@@ -21,6 +21,7 @@ mixin _$DiscoverState {
   List<ProductModel>? get productModelList =>
       throw _privateConstructorUsedError;
   List<String>? get categoryList => throw _privateConstructorUsedError;
+  String? get categoryName => throw _privateConstructorUsedError;
   ApiRequestStates get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -39,6 +40,7 @@ abstract class $DiscoverStateCopyWith<$Res> {
       dynamic showFilterButton,
       List<ProductModel>? productModelList,
       List<String>? categoryList,
+      String? categoryName,
       ApiRequestStates status});
 }
 
@@ -59,6 +61,7 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
     Object? showFilterButton = freezed,
     Object? productModelList = freezed,
     Object? categoryList = freezed,
+    Object? categoryName = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -78,6 +81,10 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
           ? _value.categoryList
           : categoryList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      categoryName: freezed == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -99,6 +106,7 @@ abstract class _$$DiscoverStateImplCopyWith<$Res>
       dynamic showFilterButton,
       List<ProductModel>? productModelList,
       List<String>? categoryList,
+      String? categoryName,
       ApiRequestStates status});
 }
 
@@ -117,6 +125,7 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
     Object? showFilterButton = freezed,
     Object? productModelList = freezed,
     Object? categoryList = freezed,
+    Object? categoryName = freezed,
     Object? status = null,
   }) {
     return _then(_$DiscoverStateImpl(
@@ -133,6 +142,10 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
           ? _value._categoryList
           : categoryList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      categoryName: freezed == categoryName
+          ? _value.categoryName
+          : categoryName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -149,6 +162,7 @@ class _$DiscoverStateImpl extends _DiscoverState {
       this.showFilterButton = true,
       final List<ProductModel>? productModelList,
       final List<String>? categoryList,
+      this.categoryName,
       this.status = ApiRequestStates.initial})
       : _productModelList = productModelList,
         _categoryList = categoryList,
@@ -182,12 +196,14 @@ class _$DiscoverStateImpl extends _DiscoverState {
   }
 
   @override
+  final String? categoryName;
+  @override
   @JsonKey()
   final ApiRequestStates status;
 
   @override
   String toString() {
-    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton, productModelList: $productModelList, categoryList: $categoryList, status: $status)';
+    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton, productModelList: $productModelList, categoryList: $categoryList, categoryName: $categoryName, status: $status)';
   }
 
   @override
@@ -203,6 +219,8 @@ class _$DiscoverStateImpl extends _DiscoverState {
                 .equals(other._productModelList, _productModelList) &&
             const DeepCollectionEquality()
                 .equals(other._categoryList, _categoryList) &&
+            (identical(other.categoryName, categoryName) ||
+                other.categoryName == categoryName) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -213,6 +231,7 @@ class _$DiscoverStateImpl extends _DiscoverState {
       const DeepCollectionEquality().hash(showFilterButton),
       const DeepCollectionEquality().hash(_productModelList),
       const DeepCollectionEquality().hash(_categoryList),
+      categoryName,
       status);
 
   @JsonKey(ignore: true)
@@ -228,6 +247,7 @@ abstract class _DiscoverState extends DiscoverState {
       final dynamic showFilterButton,
       final List<ProductModel>? productModelList,
       final List<String>? categoryList,
+      final String? categoryName,
       final ApiRequestStates status}) = _$DiscoverStateImpl;
   const _DiscoverState._() : super._();
 
@@ -239,6 +259,8 @@ abstract class _DiscoverState extends DiscoverState {
   List<ProductModel>? get productModelList;
   @override
   List<String>? get categoryList;
+  @override
+  String? get categoryName;
   @override
   ApiRequestStates get status;
   @override

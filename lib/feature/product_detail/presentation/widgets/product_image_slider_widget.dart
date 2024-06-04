@@ -32,7 +32,8 @@ class ProductImageSliderWidget extends StatelessWidget {
                 SizedBox(
                   height: 178,
                   child: Hero(
-                    tag: "${product.name}${product.brand ?? 0}",
+                    tag:
+                        "${product.name ?? 0}${product.brand ?? 0} ${product.name ?? 0}${product.id ?? 0}",
                     child: Image.network(
                       product.image ?? "",
                       fit: BoxFit.cover,

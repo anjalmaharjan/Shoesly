@@ -6,10 +6,12 @@ class FilterButton extends StatelessWidget {
     super.key,
     required bool showFab,
     required this.duration,
+    required this.onPressed,
   }) : _showFab = showFab;
 
   final bool _showFab;
   final Duration duration;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,7 @@ class FilterButton extends StatelessWidget {
           child: PrimaryButton(
             text: "filter",
             iconRequired: true,
-            onPressed: () async {
-              // Navigator.pushNamed(context, AppRoutes.productFilter);
-              await FirebaseDatabaseService().getRequests();
-            },
+            onPressed: onPressed,
           ),
         ),
       ),

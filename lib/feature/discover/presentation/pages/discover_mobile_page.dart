@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/enum/enum.dart';
@@ -56,22 +57,30 @@ class DisoverPageMobile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.only(left: 14),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => CategoryItem(
-                        isSelected: index == state.categoryIndex,
-                        text: state.categoryList?[index] ?? "",
-                        onPressed: () {
-                          context.read<DiscoverCubit>().selectCategory(index);
-                        },
+                  BlocListener<DiscoverCubit, DiscoverState>(
+                    listener: (context, state) {},
+                    child: Expanded(
+                      flex: 3,
+                      child: ListView.separated(
+                        controller:
+                            context.read<DiscoverCubit>().scrollController,
+                        padding: const EdgeInsets.only(left: 14),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => CategoryItem(
+                          isSelected: index == state.categoryIndex,
+                          text: state.categoryList?[index] ?? "",
+                          onPressed: () {
+                            context.read<DiscoverCubit>().selectCategory(
+                                index: index,
+                                categoryName:
+                                    state.categoryList?[index] ?? "All");
+                          },
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 4),
+                        itemCount: state.categoryList?.length ?? 0,
                       ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(width: 4),
-                      itemCount: state.categoryList?.length ?? 0,
                     ),
                   ),
                   Flexible(

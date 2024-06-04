@@ -8,6 +8,7 @@ class DiscoverState with _$DiscoverState {
     @Default(true) showFilterButton,
     List<ProductModel>? productModelList,
     List<String>? categoryList,
+    String? categoryName,
     @Default(ApiRequestStates.initial) ApiRequestStates status,
   }) = _DiscoverState;
 }
