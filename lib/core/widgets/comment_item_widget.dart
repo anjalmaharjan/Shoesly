@@ -42,7 +42,7 @@ class CommentItemWidget extends StatelessWidget {
                         textTheme.titleMedium!.copyWith(fontSize: FontSize.s16),
                   ),
                   Text(
-                    "Today" ?? "N/A",
+                    "Today",
                     style: textTheme.titleSmall!.copyWith(
                       fontSize: FontSize.s12,
                       color: AppColors.unselectedTextColor,
@@ -51,7 +51,7 @@ class CommentItemWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 6),
-              const RatingStarWidget(rating: 4),
+              RatingStarWidget(rating: commentModel?.rating ?? 0),
               const SizedBox(height: 10),
               Text(
                 commentModel?.description ?? "N/A ",
