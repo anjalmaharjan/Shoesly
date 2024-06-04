@@ -98,28 +98,51 @@ class DiscoverCubit extends Cubit<DiscoverState> {
     for (var productList in categoryProductMap.values) {
       allProducts.addAll(productList);
     }
+
+    List<ProductModel> productListToFilter = allProducts;
+
     // Apply filters if provided
     if (filters != null) {
-      final priceStart =
-          filters['priceRange'] == null ? 0 : filters['priceRange'].start;
-      final priceEnd =
-          filters['priceRange'] == null ? 0 : filters['priceRange'].end;
-      allProducts.retainWhere((product) {
-        final meetsPriceRange =
+      final double priceStart = filters['priceRange']?.start ?? 0;
+      final double priceEnd = filters['priceRange']?.end ?? double.infinity;
+      final String? brandName = filters['brandName'];
+
+      // Use the global product list if the brand is "All"
+      if (brandName == "All") {
+        productListToFilter = ProductListSingleton.instance.productList;
+      }
+
+      // Apply the filters
+      productListToFilter = productListToFilter.where((product) {
+        final bool meetsPriceRange =
             product.price! >= priceStart && product.price! <= priceEnd;
-        final meetsBrand = product.brand == filters['brandName'];
+        final bool meetsBrand = brandName == null ||
+            brandName == "All" ||
+            product.brand == brandName;
         return meetsPriceRange && meetsBrand;
-      });
+      }).toList();
     }
-    // Sort products from highest to lowest price
-    allProducts.sort((a, b) => b.price!.compareTo(a.price!));
+
+    // Sort products based on the 'sortBy' filter
+    if (filters != null) {
+      final String? sortBy = filters['sortBy']?.toString().toLowerCase();
+      if (sortBy == 'lowest price') {
+        productListToFilter.sort((a, b) => a.price!.compareTo(b.price!));
+      } else if (sortBy == 'highest price') {
+        productListToFilter.sort((a, b) => b.price!.compareTo(a.price!));
+      } else {
+        productListToFilter.sort((a, b) => b.price!.compareTo(a.price!));
+      }
+    } else {
+      // Default sorting: highest to lowest price
+      productListToFilter.sort((a, b) => b.price!.compareTo(a.price!));
+    }
+
     emit(
       state.copyWith(
         categoryIndex:
             (filters?['brandName'] != null) ? filters!['brandIndex'] + 1 : 0,
-        productModelList: filters?['brandName'] == "All"
-            ? ProductListSingleton.instance.productList
-            : allProducts,
+        productModelList: productListToFilter,
       ),
     );
     scrollToCategoryIndex(

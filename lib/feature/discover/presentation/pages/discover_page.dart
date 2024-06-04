@@ -33,7 +33,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   showFab: _showFab,
                   duration: duration,
                   onPressed: () {
-                    BlocProvider.of<FilterCubit>(context).resetFilters();
+                    // BlocProvider.of<FilterCubit>(context).resetFilters();
                     Navigator.pushNamed(
                       context,
                       AppRoutes.productFilter,

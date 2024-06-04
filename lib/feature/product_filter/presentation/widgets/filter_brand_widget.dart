@@ -38,8 +38,10 @@ class BrandFilterWidget extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       context.read<FilterCubit>().brandPress(
-                            index,
-                            state.brandFilter![index]['name'],
+                            index == selectedIndex ? -1 : index,
+                            index == selectedIndex
+                                ? "All"
+                                : state.brandFilter![index]['name'],
                           );
                     },
                     child: BrandWidget(
