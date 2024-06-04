@@ -68,9 +68,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                             : EdgeInsets.zero,
                         child: CategoryItem(
                           isSelected: state.selectedCategoryIndex == index,
-                          text: context
-                              .read<ProductReviewCubit>()
-                              .reviewCategoryList[index],
+                          text: state.reviewCategoryList![index],
                           onPressed: () {
                             context
                                 .read<ProductReviewCubit>()
@@ -80,10 +78,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(width: 4),
-                      itemCount: context
-                          .read<ProductReviewCubit>()
-                          .reviewCategoryList
-                          .length,
+                      itemCount: state.reviewCategoryList!.length,
                     );
                   },
                 ),

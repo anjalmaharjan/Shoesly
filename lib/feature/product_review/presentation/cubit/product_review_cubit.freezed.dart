@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProductReviewState {
   dynamic get selectedCategoryIndex => throw _privateConstructorUsedError;
   List<Review>? get reviewList => throw _privateConstructorUsedError;
+  List<String>? get reviewCategoryList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductReviewStateCopyWith<ProductReviewState> get copyWith =>
@@ -30,7 +31,10 @@ abstract class $ProductReviewStateCopyWith<$Res> {
           ProductReviewState value, $Res Function(ProductReviewState) then) =
       _$ProductReviewStateCopyWithImpl<$Res, ProductReviewState>;
   @useResult
-  $Res call({dynamic selectedCategoryIndex, List<Review>? reviewList});
+  $Res call(
+      {dynamic selectedCategoryIndex,
+      List<Review>? reviewList,
+      List<String>? reviewCategoryList});
 }
 
 /// @nodoc
@@ -48,6 +52,7 @@ class _$ProductReviewStateCopyWithImpl<$Res, $Val extends ProductReviewState>
   $Res call({
     Object? selectedCategoryIndex = freezed,
     Object? reviewList = freezed,
+    Object? reviewCategoryList = freezed,
   }) {
     return _then(_value.copyWith(
       selectedCategoryIndex: freezed == selectedCategoryIndex
@@ -58,6 +63,10 @@ class _$ProductReviewStateCopyWithImpl<$Res, $Val extends ProductReviewState>
           ? _value.reviewList
           : reviewList // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      reviewCategoryList: freezed == reviewCategoryList
+          ? _value.reviewCategoryList
+          : reviewCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -70,7 +79,10 @@ abstract class _$$ProductReviewStateImplCopyWith<$Res>
       __$$ProductReviewStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic selectedCategoryIndex, List<Review>? reviewList});
+  $Res call(
+      {dynamic selectedCategoryIndex,
+      List<Review>? reviewList,
+      List<String>? reviewCategoryList});
 }
 
 /// @nodoc
@@ -86,6 +98,7 @@ class __$$ProductReviewStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedCategoryIndex = freezed,
     Object? reviewList = freezed,
+    Object? reviewCategoryList = freezed,
   }) {
     return _then(_$ProductReviewStateImpl(
       selectedCategoryIndex: freezed == selectedCategoryIndex
@@ -95,6 +108,10 @@ class __$$ProductReviewStateImplCopyWithImpl<$Res>
           ? _value._reviewList
           : reviewList // ignore: cast_nullable_to_non_nullable
               as List<Review>?,
+      reviewCategoryList: freezed == reviewCategoryList
+          ? _value._reviewCategoryList
+          : reviewCategoryList // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -103,8 +120,11 @@ class __$$ProductReviewStateImplCopyWithImpl<$Res>
 
 class _$ProductReviewStateImpl extends _ProductReviewState {
   const _$ProductReviewStateImpl(
-      {this.selectedCategoryIndex = 0, final List<Review>? reviewList})
+      {this.selectedCategoryIndex = 0,
+      final List<Review>? reviewList,
+      final List<String>? reviewCategoryList})
       : _reviewList = reviewList,
+        _reviewCategoryList = reviewCategoryList,
         super._();
 
   @override
@@ -120,9 +140,20 @@ class _$ProductReviewStateImpl extends _ProductReviewState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _reviewCategoryList;
+  @override
+  List<String>? get reviewCategoryList {
+    final value = _reviewCategoryList;
+    if (value == null) return null;
+    if (_reviewCategoryList is EqualUnmodifiableListView)
+      return _reviewCategoryList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ProductReviewState(selectedCategoryIndex: $selectedCategoryIndex, reviewList: $reviewList)';
+    return 'ProductReviewState(selectedCategoryIndex: $selectedCategoryIndex, reviewList: $reviewList, reviewCategoryList: $reviewCategoryList)';
   }
 
   @override
@@ -133,14 +164,17 @@ class _$ProductReviewStateImpl extends _ProductReviewState {
             const DeepCollectionEquality()
                 .equals(other.selectedCategoryIndex, selectedCategoryIndex) &&
             const DeepCollectionEquality()
-                .equals(other._reviewList, _reviewList));
+                .equals(other._reviewList, _reviewList) &&
+            const DeepCollectionEquality()
+                .equals(other._reviewCategoryList, _reviewCategoryList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(selectedCategoryIndex),
-      const DeepCollectionEquality().hash(_reviewList));
+      const DeepCollectionEquality().hash(_reviewList),
+      const DeepCollectionEquality().hash(_reviewCategoryList));
 
   @JsonKey(ignore: true)
   @override
@@ -153,13 +187,16 @@ class _$ProductReviewStateImpl extends _ProductReviewState {
 abstract class _ProductReviewState extends ProductReviewState {
   const factory _ProductReviewState(
       {final dynamic selectedCategoryIndex,
-      final List<Review>? reviewList}) = _$ProductReviewStateImpl;
+      final List<Review>? reviewList,
+      final List<String>? reviewCategoryList}) = _$ProductReviewStateImpl;
   const _ProductReviewState._() : super._();
 
   @override
   dynamic get selectedCategoryIndex;
   @override
   List<Review>? get reviewList;
+  @override
+  List<String>? get reviewCategoryList;
   @override
   @JsonKey(ignore: true)
   _$$ProductReviewStateImplCopyWith<_$ProductReviewStateImpl> get copyWith =>

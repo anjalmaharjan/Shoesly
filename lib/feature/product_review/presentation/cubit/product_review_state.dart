@@ -6,5 +6,6 @@ class ProductReviewState with _$ProductReviewState {
   const factory ProductReviewState({
     @Default(0) selectedCategoryIndex,
     List<Review>? reviewList,
+    List<String>? reviewCategoryList,
   }) = _ProductReviewState;
 }

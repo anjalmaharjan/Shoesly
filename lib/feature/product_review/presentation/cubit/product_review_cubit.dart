@@ -10,19 +10,22 @@ class ProductReviewCubit extends Cubit<ProductReviewState> {
   ProductReviewCubit() : super(const ProductReviewState());
 
   List<Review> reviewList = [];
-  List<String> reviewCategoryList = [
-    'All',
-    '5 Stars',
-    '4 Stars',
-    '3 Stars',
-    '2 Stars',
-    '1 Star'
-  ];
+  List<String> reviewCategoryList = [];
 
   void sortReviewList(List<Review> reviews) {
     reviewList.clear();
     reviewList.addAll(reviews);
-    emit(state.copyWith(reviewList: reviewList));
+    reviewCategoryList.clear();
+    final existingRatings = reviewList.map((review) => review.rating).toSet();
+    // Sort ratings in descending order and add to the category list
+    final sortedRatings = existingRatings.toList()
+      ..sort((a, b) => b!.compareTo(a!));
+    for (var rating in sortedRatings) {
+      reviewCategoryList.add('$rating Stars');
+    }
+    reviewCategoryList.insert(0, 'All');
+    emit(state.copyWith(
+        reviewList: reviewList, reviewCategoryList: reviewCategoryList));
   }
 
   void selectedCategory(int index) {
@@ -30,8 +33,12 @@ class ProductReviewCubit extends Cubit<ProductReviewState> {
     if (selectedCategory == 'All') {
       showAllReviews();
     } else {
-      final filteredReviews =
-          reviewList.where((review) => review.rating == index).toList();
+      final filteredReviews = reviewList
+          .where(
+            (review) =>
+                review.rating == int.parse(selectedCategory.split(' ')[0]),
+          )
+          .toList();
       emit(
         state.copyWith(
             selectedCategoryIndex: index, reviewList: filteredReviews),
