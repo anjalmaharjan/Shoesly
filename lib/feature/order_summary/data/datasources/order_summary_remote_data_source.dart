@@ -20,7 +20,7 @@ class OrderSummaryRemoteDataSourceImpl implements OrderSummaryRemoteDataSource {
     try {
       final ref = firebaseDatabase.ref("payment");
       await ref.set(jsonEncode(paymentModel));
-      sendNotification(paymentModel);
+      await sendNotification(paymentModel);
       return "Success";
     } catch (e) {
       throw ServerException(e.toString());
@@ -29,20 +29,23 @@ class OrderSummaryRemoteDataSourceImpl implements OrderSummaryRemoteDataSource {
 
   Future<void> sendNotification(PaymentModel paymentModel) async {
     try {
-      final fcmToken = FirebaseMessaging.instance.getToken();
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      print(fcmToken);
       final uri = Uri.parse("https://fcm.googleapis.com/fcm/send");
-      await http.post(uri,
-          body: jsonEncode({
-            "to": fcmToken,
-            "notification": {
-              "title": "Payment success",
-              "body":
-                  "Thank you for ordering your total cost is${paymentModel.grandTotal}"
-            },
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          });
+      final response = await http.post(
+        uri,
+        body: jsonEncode({
+          "token": "bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...",
+          "notification": {
+            "title": "Payment success",
+            "body": "Thank you for ordering.}"
+          },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+      print(response.body);
     } catch (e) {
       debugPrint(e.toString());
     }
