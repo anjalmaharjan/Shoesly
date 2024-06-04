@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseDatabaseService {
   static final FirebaseDatabaseService _firebaseDatabaseService =
@@ -9,6 +10,8 @@ class FirebaseDatabaseService {
   }
 
   FirebaseDatabaseService._internal();
+
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 

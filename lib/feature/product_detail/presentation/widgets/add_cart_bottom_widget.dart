@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/product_model.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../cubit/product_detail_cubit.dart';
 
 class AddToCartWidget extends StatelessWidget {

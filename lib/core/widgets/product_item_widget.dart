@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shoesly/core/product_model.dart';
-import 'package:shoesly/core/routes.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
+import 'package:shoesly/core/routes/routes.dart';
 
 import '../responsive.dart';
 import '../theme/app_colors.dart';

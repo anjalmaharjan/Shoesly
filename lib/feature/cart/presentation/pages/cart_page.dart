@@ -43,36 +43,48 @@ class _CartPageState extends State<CartPage> {
       body: Responsive(
         mobile: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
+            final cartList = state.cartProductList ?? [];
             return ListView.separated(
               padding: const EdgeInsets.only(top: 30, bottom: 50),
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return Slidable(
-                  key: ValueKey<int>(state.cartProductList![index].hashCode),
-                  closeOnScroll: true,
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    extentRatio: 0.2,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TrashWidget(
-                          onPressed: () {
-                            context.read<CartCubit>().removeFromCartList(index);
-                          },
+                return cartList.isEmpty
+                    ? Center(
+                        child: Text(
+                          "Nothing in list",
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                      ),
-                    ],
-                  ),
-                  child: CartItemWidget(
-                    textTheme: textTheme,
-                    productModel: state.cartProductList![index],
-                  ),
-                );
+                      )
+                    : Slidable(
+                        key: ValueKey<int>(
+                            state.cartProductList![index].hashCode),
+                        closeOnScroll: true,
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          extentRatio: 0.2,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: TrashWidget(
+                                onPressed: () {
+                                  context
+                                      .read<CartCubit>()
+                                      .removeFromCartList(index);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        child: CartItemWidget(
+                          textTheme: textTheme,
+                          productModel: state.cartProductList![index],
+                        ),
+                      );
               },
               separatorBuilder: (BuildContext context, int index) =>
                   const SizedBox(height: 30),
-              itemCount: state.cartProductList?.length ?? 0,
+              itemCount:
+                  cartList.isEmpty ? 1 : state.cartProductList?.length ?? 0,
             );
           },
         ),

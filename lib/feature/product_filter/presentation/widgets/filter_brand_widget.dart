@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoesly/feature/product_filter/presentation/widgets/brand_widget.dart';
-import '../../../../core/product_model.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../cubit/filter_cubit.dart';
 
 class BrandFilterWidget extends StatelessWidget {

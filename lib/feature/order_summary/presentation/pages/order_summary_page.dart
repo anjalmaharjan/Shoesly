@@ -1,9 +1,16 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:shoesly/core/network/connection_checker.dart';
 import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
+import 'package:shoesly/feature/order_summary/data/datasources/order_summary_remote_data_source.dart';
+import 'package:shoesly/feature/order_summary/data/models/payment_model.dart';
+import 'package:shoesly/feature/order_summary/data/repository/order_summary_repostiory_impl.dart';
+import 'package:shoesly/feature/order_summary/domain/usecases/order_summary_usecase.dart';
 import 'package:shoesly/feature/order_summary/presentation/cubit/order_summary_cubit.dart';
 import '../../../../core/core.dart';
-import '../../../../core/product_model.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../widgets/information_item_widget.dart';
 import '../widgets/order_detail_widget.dart';
 import '../widgets/payment_detail_tile_widget.dart';
@@ -31,9 +38,17 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
     final textTheme = Theme.of(context).textTheme;
     final arguments =
         ModalRoute.of(context)?.settings.arguments as List<ProductModel>;
-
     return BlocProvider(
-      create: (context) => OrderSummaryCubit()
+      create: (context) => OrderSummaryCubit(
+        orderSummaryUsecase: OrderSummaryUsecase(
+          OrderSummaryRepositoryImpl(
+            OrderSummaryRemoteDataSourceImpl(FirebaseDatabase.instance),
+            ConnectionCheckerImpl(
+              InternetConnection(),
+            ),
+          ),
+        ),
+      )
         ..totalShippingCost(arguments)
         ..subTotalCost(arguments)
         ..grandTotal(arguments),
@@ -125,7 +140,7 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                       Divider(color: AppColors.dividerColor),
                       PaymentDetailTile(
                         textTheme: textTheme,
-                        title: "Total Order",
+                        title: "Total Cost",
                         price: "${state.totalOrderCost}",
                       ),
                     ],
@@ -137,26 +152,27 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
           tablet: const Column(),
           desktop: const Column(),
         ),
-        bottomNavigationBar: BlocBuilder<OrderSummaryCubit, OrderSummaryState>(
-          builder: (context, state) {
-            return CustomBottomNavBar(
-              rightButtonText: "payment",
-              rightButtonOnPressed: () {
-                // showDialog(
-                //   context: context,
-                //   builder: (context) => AlertDialog.adaptive(
-                //     titlePadding: const EdgeInsets.symmetric(vertical: 80),
-                //     title: Center(
-                //       child: CircularProgressIndicator.adaptive(
-                //         backgroundColor: AppColors.selectedTextColor,
-                //       ),
-                //     ),
-                //   ),
-                // );
+        bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
+          builder: (context, cartState) {
+            return BlocBuilder<OrderSummaryCubit, OrderSummaryState>(
+              builder: (context, ordreSummaryState) {
+                return CustomBottomNavBar(
+                  rightButtonText: "payment",
+                  rightButtonOnPressed: () {
+                    context.read<OrderSummaryCubit>().postPaymentToDb(
+                          PaymentModel(
+                            productList: cartState.cartProductList,
+                            subTotal: ordreSummaryState.subTotalCost,
+                            grandTotal: ordreSummaryState.totalOrderCost,
+                            shipping: ordreSummaryState.totalShippingCost,
+                          ),
+                        );
+                  },
+                  isleftButtonRequired: false,
+                  title: "Grand Total",
+                  totalCost: "${ordreSummaryState.totalOrderCost}",
+                );
               },
-              isleftButtonRequired: false,
-              title: "Grand Total",
-              totalCost: "${state.totalOrderCost}",
             );
           },
         ),

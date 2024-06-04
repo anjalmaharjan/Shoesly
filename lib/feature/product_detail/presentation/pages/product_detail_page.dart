@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 import '../../../../core/core.dart';
 import '../widgets/add_cart_bottom_widget.dart';

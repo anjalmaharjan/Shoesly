@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../core/product_model.dart';
+import '../../../discover/data/models/product_model.dart';
 
 part 'product_review_state.dart';
 part 'product_review_cubit.freezed.dart';

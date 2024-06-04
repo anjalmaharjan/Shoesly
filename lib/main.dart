@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:shoesly/core/network/connection_checker.dart';
 import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 import 'package:shoesly/feature/cart/presentation/pages/cart_page.dart';
 import 'package:shoesly/feature/discover/data/datasources/discover_remote_data_source.dart';
@@ -14,7 +16,6 @@ import 'package:shoesly/feature/product_detail/presentation/pages/product_detail
 import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
 import 'package:shoesly/feature/product_filter/presentation/pages/product_filter_page.dart';
 import 'package:shoesly/feature/product_review/presentation/pages/product_review_page.dart';
-import 'package:shoesly/init_dependencies.dart';
 import 'core/core.dart';
 import 'feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 
@@ -22,7 +23,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessagingService().requestPersmission();
-  await initDependencies();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -34,6 +34,7 @@ void main() async {
             discoverProduct: DiscoverProductUsecase(
               DiscoverRepositoryImpl(
                 DiscoverRemoteDataSourceImpl(FirebaseFirestore.instance),
+                ConnectionCheckerImpl(InternetConnection()),
               ),
             ),
           )..fetchDiscoverProducts(),

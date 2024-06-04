@@ -1,4 +1,4 @@
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 
 class ProductListSingleton {
   static final ProductListSingleton _instance =

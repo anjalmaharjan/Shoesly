@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 
 import '../../../../core/core.dart';
-import '../../../../core/product_model.dart';
+import '../../../discover/data/models/product_model.dart';
 
 class ProductImageSliderWidget extends StatelessWidget {
   const ProductImageSliderWidget({

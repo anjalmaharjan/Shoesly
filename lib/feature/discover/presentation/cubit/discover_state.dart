@@ -10,5 +10,6 @@ class DiscoverState with _$DiscoverState {
     List<String>? categoryList,
     String? categoryName,
     @Default(ApiRequestStates.initial) ApiRequestStates status,
+    @Default('') String failureMessage,
   }) = _DiscoverState;
 }

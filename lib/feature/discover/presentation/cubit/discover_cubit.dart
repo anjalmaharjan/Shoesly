@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shoesly/core/enum/enum.dart';
 import 'package:shoesly/core/singletons/product_list_singleton.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import 'package:shoesly/core/usecase/usecase.dart';
 import 'package:shoesly/feature/discover/domain/usecases/discover_product.dart';
 
@@ -27,12 +27,19 @@ class DiscoverCubit extends Cubit<DiscoverState> {
     final response = await _discoverProduct(NoParams());
     response.fold(
       (l) => emit(
-        state.copyWith(status: ApiRequestStates.error),
+        state.copyWith(
+          status: ApiRequestStates.error,
+          failureMessage: l.message,
+        ),
       ),
       (r) {
         _listSingleton.productList.addAll(r);
         emit(
-          state.copyWith(productModelList: r, status: ApiRequestStates.success),
+          state.copyWith(
+            productModelList: r,
+            status: ApiRequestStates.success,
+            failureMessage: '',
+          ),
         );
         sortProductCategory(r);
       },

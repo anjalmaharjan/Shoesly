@@ -47,6 +47,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   fpdart: ^1.1.0
   get_it: ^7.7.0
+  firebase_database: any
+  internet_connection_checker_plus: any
+
   
 
 

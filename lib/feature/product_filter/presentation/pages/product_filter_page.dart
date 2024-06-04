@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import 'package:shoesly/core/singletons/product_list_singleton.dart';
 import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart';
 import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';

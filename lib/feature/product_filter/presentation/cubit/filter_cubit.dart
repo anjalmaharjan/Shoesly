@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shoesly/core/core.dart';
 import 'package:shoesly/core/singletons/product_list_singleton.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 
 part 'filter_state.dart';
 part 'filter_cubit.freezed.dart';

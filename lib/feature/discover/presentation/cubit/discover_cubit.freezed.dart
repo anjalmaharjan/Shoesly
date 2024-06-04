@@ -23,6 +23,7 @@ mixin _$DiscoverState {
   List<String>? get categoryList => throw _privateConstructorUsedError;
   String? get categoryName => throw _privateConstructorUsedError;
   ApiRequestStates get status => throw _privateConstructorUsedError;
+  String get failureMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DiscoverStateCopyWith<DiscoverState> get copyWith =>
@@ -41,7 +42,8 @@ abstract class $DiscoverStateCopyWith<$Res> {
       List<ProductModel>? productModelList,
       List<String>? categoryList,
       String? categoryName,
-      ApiRequestStates status});
+      ApiRequestStates status,
+      String failureMessage});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
     Object? categoryList = freezed,
     Object? categoryName = freezed,
     Object? status = null,
+    Object? failureMessage = null,
   }) {
     return _then(_value.copyWith(
       categoryIndex: freezed == categoryIndex
@@ -89,6 +92,10 @@ class _$DiscoverStateCopyWithImpl<$Res, $Val extends DiscoverState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ApiRequestStates,
+      failureMessage: null == failureMessage
+          ? _value.failureMessage
+          : failureMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -107,7 +114,8 @@ abstract class _$$DiscoverStateImplCopyWith<$Res>
       List<ProductModel>? productModelList,
       List<String>? categoryList,
       String? categoryName,
-      ApiRequestStates status});
+      ApiRequestStates status,
+      String failureMessage});
 }
 
 /// @nodoc
@@ -127,6 +135,7 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
     Object? categoryList = freezed,
     Object? categoryName = freezed,
     Object? status = null,
+    Object? failureMessage = null,
   }) {
     return _then(_$DiscoverStateImpl(
       categoryIndex:
@@ -150,6 +159,10 @@ class __$$DiscoverStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ApiRequestStates,
+      failureMessage: null == failureMessage
+          ? _value.failureMessage
+          : failureMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -163,7 +176,8 @@ class _$DiscoverStateImpl extends _DiscoverState {
       final List<ProductModel>? productModelList,
       final List<String>? categoryList,
       this.categoryName,
-      this.status = ApiRequestStates.initial})
+      this.status = ApiRequestStates.initial,
+      this.failureMessage = ''})
       : _productModelList = productModelList,
         _categoryList = categoryList,
         super._();
@@ -200,10 +214,13 @@ class _$DiscoverStateImpl extends _DiscoverState {
   @override
   @JsonKey()
   final ApiRequestStates status;
+  @override
+  @JsonKey()
+  final String failureMessage;
 
   @override
   String toString() {
-    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton, productModelList: $productModelList, categoryList: $categoryList, categoryName: $categoryName, status: $status)';
+    return 'DiscoverState(categoryIndex: $categoryIndex, showFilterButton: $showFilterButton, productModelList: $productModelList, categoryList: $categoryList, categoryName: $categoryName, status: $status, failureMessage: $failureMessage)';
   }
 
   @override
@@ -221,7 +238,9 @@ class _$DiscoverStateImpl extends _DiscoverState {
                 .equals(other._categoryList, _categoryList) &&
             (identical(other.categoryName, categoryName) ||
                 other.categoryName == categoryName) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.failureMessage, failureMessage) ||
+                other.failureMessage == failureMessage));
   }
 
   @override
@@ -232,7 +251,8 @@ class _$DiscoverStateImpl extends _DiscoverState {
       const DeepCollectionEquality().hash(_productModelList),
       const DeepCollectionEquality().hash(_categoryList),
       categoryName,
-      status);
+      status,
+      failureMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -248,7 +268,8 @@ abstract class _DiscoverState extends DiscoverState {
       final List<ProductModel>? productModelList,
       final List<String>? categoryList,
       final String? categoryName,
-      final ApiRequestStates status}) = _$DiscoverStateImpl;
+      final ApiRequestStates status,
+      final String failureMessage}) = _$DiscoverStateImpl;
   const _DiscoverState._() : super._();
 
   @override
@@ -263,6 +284,8 @@ abstract class _DiscoverState extends DiscoverState {
   String? get categoryName;
   @override
   ApiRequestStates get status;
+  @override
+  String get failureMessage;
   @override
   @JsonKey(ignore: true)
   _$$DiscoverStateImplCopyWith<_$DiscoverStateImpl> get copyWith =>

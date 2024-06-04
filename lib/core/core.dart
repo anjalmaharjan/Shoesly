@@ -1,4 +1,4 @@
-export 'package:shoesly/core/routes.dart';
+export 'package:shoesly/core/routes/routes.dart';
 export 'package:shoesly/core/responsive.dart';
 export 'package:shoesly/core/extensions/color_extenstion.dart';
 export 'package:shoesly/core/extensions/string_extension.dart';
