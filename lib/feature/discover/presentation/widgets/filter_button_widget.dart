@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:shoesly/core/routes.dart';
-
-import '../../../../core/widgets/primary_button_widget.dart';
+import '../../../../core/core.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({
@@ -27,8 +25,8 @@ class FilterButton extends StatelessWidget {
             text: "filter",
             iconRequired: true,
             onPressed: () async {
-              Navigator.pushNamed(context, AppRoutes.productFilter);
-              // await FirebaseDatabaseService().getRequests();
+              // Navigator.pushNamed(context, AppRoutes.productFilter);
+              await FirebaseDatabaseService().getRequests();
             },
           ),
         ),

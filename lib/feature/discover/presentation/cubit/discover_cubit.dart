@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shoesly/core/enum/enum.dart';
 import 'package:shoesly/core/product_model.dart';
@@ -17,6 +15,9 @@ class DiscoverCubit extends Cubit<DiscoverState> {
   })  : _discoverProduct = discoverProduct,
         super(const DiscoverState());
 
+  List<String> categoryList = [];
+  Map<String, List<ProductModel>> categoryProductMap = {};
+
   void fetchDiscoverProducts() async {
     emit(state.copyWith(status: ApiRequestStates.loading));
     final response = await _discoverProduct(NoParams());
@@ -25,30 +26,47 @@ class DiscoverCubit extends Cubit<DiscoverState> {
         state.copyWith(status: ApiRequestStates.error),
       ),
       (r) {
-        print(r);
         emit(
           state.copyWith(productModelList: r, status: ApiRequestStates.success),
         );
+        sortProductCategory(r);
       },
     );
   }
 
-  bool showFilterButton(UserScrollNotification notification) {
-    final ScrollDirection direction = notification.direction;
-    if (direction == ScrollDirection.reverse &&
-        notification.metrics.axis != Axis.horizontal) {
-      emit(state.copyWith(showFilterButton: false));
-      return false;
-    } else if (direction == ScrollDirection.forward &&
-        notification.metrics.axis != Axis.horizontal) {
-      emit(state.copyWith(showFilterButton: true));
-      return true;
+  void sortProductCategory(List<ProductModel> productList) {
+    final uniqueCategories = <String>{};
+    categoryProductMap.clear();
+
+    for (var product in productList) {
+      if (product.brand != null) {
+        uniqueCategories.add(product.brand!);
+        categoryProductMap.putIfAbsent(product.brand!, () => []).add(product);
+      }
     }
-    emit(state.copyWith(showFilterButton: true));
-    return true;
+    categoryList = uniqueCategories.toList();
+    categoryList.insert(0, "All");
+    emit(state.copyWith(categoryList: categoryList));
   }
 
   void selectCategory(int index) {
-    emit(state.copyWith(categoryIndex: index));
+    final selectedCategory = categoryList[index];
+    if (selectedCategory == "All") {
+      showAllProducts();
+    } else {
+      final filteredProducts = categoryProductMap[selectedCategory] ?? [];
+      emit(
+        state.copyWith(
+            categoryIndex: index, productModelList: filteredProducts),
+      );
+    }
+  }
+
+  void showAllProducts() {
+    final List<ProductModel> allProducts = [];
+    for (var productList in categoryProductMap.values) {
+      allProducts.addAll(productList);
+    }
+    emit(state.copyWith(categoryIndex: 0, productModelList: allProducts));
   }
 }

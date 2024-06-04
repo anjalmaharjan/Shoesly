@@ -23,7 +23,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Responsive.isMobile(context)
-          ? FilterButton(showFab: _showFab, duration: duration)
+          ? FilterButton(
+              showFab: _showFab,
+              duration: duration,
+            )
           : null,
       body: SafeArea(
         child: NotificationListener<UserScrollNotification>(

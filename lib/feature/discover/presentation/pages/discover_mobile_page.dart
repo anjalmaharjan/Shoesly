@@ -64,14 +64,14 @@ class DisoverPageMobile extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => CategoryItem(
                         isSelected: index == state.categoryIndex,
-                        text: state.productModelList?[index].brand ?? "",
+                        text: state.categoryList?[index] ?? "",
                         onPressed: () {
                           context.read<DiscoverCubit>().selectCategory(index);
                         },
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(width: 4),
-                      itemCount: state.productModelList?.length ?? 0,
+                      itemCount: state.categoryList?.length ?? 0,
                     ),
                   ),
                   Flexible(
