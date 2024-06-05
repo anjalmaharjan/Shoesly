@@ -1,6 +1,6 @@
 import 'package:fpdart/src/either.dart';
 import 'package:shoesly/core/error/failures.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import 'package:shoesly/core/usecase/usecase.dart';
 import 'package:shoesly/feature/discover/domain/repository/discover_repository.dart';
 

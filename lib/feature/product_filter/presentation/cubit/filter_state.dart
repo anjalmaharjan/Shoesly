@@ -7,6 +7,12 @@ class FilterState with _$FilterState {
     @Default(0) int sortByIndex,
     @Default(0) int genderIndex,
     @Default(0) int colorIndex,
-    @Default(0) int brandIndex,
+    @Default(-1) int brandIndex,
+    @Default("") String brandName,
+    RangeValues? priceRange,
+    @Default("") String sortBy,
+    Gender? gender,
+    @Default("") String color,
+    List<Map<String, dynamic>>? brandFilter,
   }) = _FilterState;
 }

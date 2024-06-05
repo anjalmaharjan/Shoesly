@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import '../core.dart';
 
 class CommentItemWidget extends StatelessWidget {
@@ -7,7 +8,7 @@ class CommentItemWidget extends StatelessWidget {
     required this.commentModel,
   });
 
-  final ProductReviewModel? commentModel;
+  final Review? commentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class CommentItemWidget extends StatelessWidget {
                         textTheme.titleMedium!.copyWith(fontSize: FontSize.s16),
                   ),
                   Text(
-                    commentModel?.date ?? "N/A",
+                    "Today",
                     style: textTheme.titleSmall!.copyWith(
                       fontSize: FontSize.s12,
                       color: AppColors.unselectedTextColor,
@@ -50,10 +51,10 @@ class CommentItemWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 6),
-              const RatingStarWidget(rating: 4),
+              RatingStarWidget(rating: commentModel?.rating ?? 0),
               const SizedBox(height: 10),
               Text(
-                commentModel?.comment ?? "N/A ",
+                commentModel?.description ?? "N/A ",
                 style: textTheme.titleSmall!.copyWith(
                   height: 2,
                   fontSize: FontSize.s12,

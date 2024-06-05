@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoesly/core/enum/enum.dart';
-import 'package:shoesly/core/product_model.dart';
-import '../../../../core/routes.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
+import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/widgets/category_item_widget.dart';
 import '../../../../core/widgets/product_item_widget.dart';
 import '../cubit/discover_cubit.dart';
@@ -35,36 +37,50 @@ class DisoverPageMobile extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushNamed(context, AppRoutes.cart);
                           },
-                          icon: Stack(
-                            children: [
-                              SvgPicture.asset("assets/svgs/bag.svg"),
-                              Positioned(
-                                right: 0,
-                                top: 3,
-                                child: SvgPicture.asset("assets/svgs/dot.svg"),
-                              ),
-                            ],
+                          icon: BlocBuilder<CartCubit, CartState>(
+                            builder: (context, state) {
+                              return Stack(
+                                children: [
+                                  SvgPicture.asset("assets/svgs/bag.svg"),
+                                  if ((state.cartProductList?.length ?? 0) > 0)
+                                    Positioned(
+                                      right: 0,
+                                      top: 3,
+                                      child: SvgPicture.asset(
+                                          "assets/svgs/dot.svg"),
+                                    ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.only(left: 14),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => CategoryItem(
-                        isSelected: index == state.categoryIndex,
-                        text: state.productModelList?[index].brand ?? "",
-                        onPressed: () {
-                          context.read<DiscoverCubit>().selectCategory(index);
-                        },
+                  BlocListener<DiscoverCubit, DiscoverState>(
+                    listener: (context, state) {},
+                    child: Expanded(
+                      flex: 3,
+                      child: ListView.separated(
+                        controller:
+                            context.read<DiscoverCubit>().scrollController,
+                        padding: const EdgeInsets.only(left: 14),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => CategoryItem(
+                          isSelected: index == state.categoryIndex,
+                          text: state.categoryList?[index] ?? "",
+                          onPressed: () {
+                            context.read<DiscoverCubit>().selectCategory(
+                                index: index,
+                                categoryName:
+                                    state.categoryList?[index] ?? "All");
+                          },
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 4),
+                        itemCount: state.categoryList?.length ?? 0,
                       ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(width: 4),
-                      itemCount: state.productModelList?.length ?? 0,
                     ),
                   ),
                   Flexible(

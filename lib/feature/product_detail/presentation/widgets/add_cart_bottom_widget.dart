@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesly/feature/cart/presentation/cubit/cart_cubit.dart';
 
 import '../../../../core/core.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../cubit/product_detail_cubit.dart';
 
 class AddToCartWidget extends StatelessWidget {
   const AddToCartWidget({
     super.key,
     required this.isAddedToCard,
+    required this.product,
   });
 
   final bool isAddedToCard;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -70,50 +74,107 @@ class AddToCartWidget extends StatelessWidget {
                             ?.copyWith(fontSize: FontSize.s14),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            flex: 6,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration.collapsed(
-                                hintText: "1",
-                                border: InputBorder.none,
+                      BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                        builder: (context, state) {
+                          final productCubit =
+                              context.read<ProductDetailCubit>();
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                flex: 6,
+                                child: TextFormField(
+                                  controller: productCubit.quantityController
+                                    ..text = state.quantity.toString(),
+                                  keyboardType: TextInputType.number,
+                                  decoration: const InputDecoration.collapsed(
+                                    hintText: "1",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    context
+                                        .read<ProductDetailCubit>()
+                                        .changeQuantityTyping(
+                                          productCubit.quantityController.text
+                                                  .isEmpty
+                                              ? 0
+                                              : int.parse(value),
+                                          product.price ?? 0.0,
+                                        );
+                                  },
+                                  maxLines: 1,
+                                ),
                               ),
-                              maxLines: 1,
-                            ),
-                          ),
-                          Flexible(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                "assets/svgs/minus_cirlce.svg",
+                              Flexible(
+                                child: IconButton(
+                                  onPressed: () {
+                                    productCubit.decrementQuantity(
+                                      int.parse(
+                                        productCubit.quantityController.text,
+                                      ),
+                                      product.price ?? 0.0,
+                                    );
+                                  },
+                                  icon: SvgPicture.asset(
+                                    "assets/svgs/minus_cirlce.svg",
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Flexible(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                  "assets/svgs/add-circle.svg"),
-                            ),
-                          ),
-                        ],
+                              Flexible(
+                                child: IconButton(
+                                  onPressed: () {
+                                    productCubit.incrementQuantity(
+                                      int.parse(
+                                          productCubit.quantityController.text),
+                                      product.price ?? 0.0,
+                                    );
+                                  },
+                                  icon: SvgPicture.asset(
+                                      "assets/svgs/add-circle.svg"),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                       Divider(color: AppColors.selectedTextColor),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                CustomBottomNavBar(
-                  isleftButtonRequired: false,
-                  title: "Total Price",
-                  rightButtonText: "add to cart",
-                  rightButtonOnPressed: () {
-                    context.read<ProductDetailCubit>().addToCart(true);
+                BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                  builder: (context, state) {
+                    return CustomBottomNavBar(
+                      totalCost: state.totalPrice == 0.0
+                          ? product.price.toString()
+                          : state.totalPrice.toString(),
+                      isleftButtonRequired: false,
+                      title: "Total Price",
+                      rightButtonText: "add to cart",
+                      rightButtonOnPressed: () {
+                        context.read<ProductDetailCubit>().isCartAdded(true);
+                        BlocProvider.of<CartCubit>(context).addToCartList(
+                          ProductModel(
+                            id: product.id,
+                            price: product.price,
+                            brand: product.brand,
+                            rating: product.rating,
+                            brandLogo: product.brand,
+                            cartQuantity: state.quantity,
+                            description: product.description,
+                            image: product.image,
+                            name: product.name,
+                            review: product.review,
+                            size: product.size,
+                            totalPrice: state.totalPrice,
+                            selectedSize: product.selectedSize,
+                            shippingCost: product.shippingCost,
+                          ),
+                        );
+                      },
+                      isBoxShadowRequired: false,
+                    );
                   },
-                  isBoxShadowRequired: false,
                 )
               ],
             )
@@ -132,28 +193,37 @@ class AddToCartWidget extends StatelessWidget {
                       ?.copyWith(fontSize: FontSize.s24),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  "1 item total",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(fontSize: FontSize.s14),
+                BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                  builder: (context, state) {
+                    return Text(
+                      "${state.quantity} item total",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontSize: FontSize.s14),
+                    );
+                  },
                 ),
                 const SizedBox(height: 10),
-                CustomBottomNavBar(
-                  leftButtonText: "back explore",
-                  leftButtonOnPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, AppRoutes.discover, (route) => false);
+                BlocBuilder<ProductDetailCubit, ProductDetailState>(
+                  builder: (context, state) {
+                    return CustomBottomNavBar(
+                      leftButtonText: "back explore",
+                      leftButtonOnPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, AppRoutes.discover, (route) => false);
+                        context.read<ProductDetailCubit>().isCartAdded(false);
+                      },
+                      isleftButtonRequired: true,
+                      title: "Total Price",
+                      rightButtonText: "to cart",
+                      rightButtonOnPressed: () async {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, AppRoutes.cart);
+                      },
+                      isBoxShadowRequired: false,
+                    );
                   },
-                  isleftButtonRequired: true,
-                  title: "Total Price",
-                  rightButtonText: "to cart",
-                  rightButtonOnPressed: () async {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, AppRoutes.cart);
-                  },
-                  isBoxShadowRequired: false,
                 )
               ],
             ),

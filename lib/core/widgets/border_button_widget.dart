@@ -44,12 +44,14 @@ class BorderButton extends StatelessWidget {
               ),
               const SizedBox(width: 16),
             ],
-            Text(
-              text.toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: FontSize.s16),
+            Flexible(
+              child: Text(
+                text.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: FontSize.s16),
+              ),
             ),
           ],
         ),

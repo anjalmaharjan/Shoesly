@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoesly/feature/product_filter/presentation/widgets/brand_widget.dart';
-
-import '../../../../core/core.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../cubit/filter_cubit.dart';
 
 class BrandFilterWidget extends StatelessWidget {
@@ -10,10 +9,12 @@ class BrandFilterWidget extends StatelessWidget {
     super.key,
     required this.textTheme,
     required this.selectedIndex,
+    required this.productModel,
   });
 
   final TextTheme textTheme;
   final int selectedIndex;
+  final List<ProductModel> productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +26,39 @@ class BrandFilterWidget extends StatelessWidget {
           style: textTheme.titleMedium,
         ),
         const SizedBox(height: 20),
-        SizedBox(
-          height: 100,
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(right: 40),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  context.read<FilterCubit>().brandPress(index);
+        BlocBuilder<FilterCubit, FilterState>(
+          builder: (context, state) {
+            return SizedBox(
+              height: 100,
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(right: 40),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      context.read<FilterCubit>().brandPress(
+                            index == selectedIndex ? -1 : index,
+                            index == selectedIndex
+                                ? "All"
+                                : state.brandFilter![index]['name'],
+                          );
+                    },
+                    child: BrandWidget(
+                      textTheme: textTheme,
+                      isTickRequired: index == selectedIndex,
+                      categoryName: state.brandFilter![index]['name'],
+                      productCount:
+                          state.brandFilter![index]['products'].length,
+                      brandLogo: state.brandFilter![index]['brandLogo'] ?? "",
+                    ),
+                  );
                 },
-                child: BrandWidget(
-                  textTheme: textTheme,
-                  isTickRequired: index == selectedIndex,
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(width: 30),
-            itemCount: FilterConstants.brandList.length,
-          ),
+                separatorBuilder: (context, index) => const SizedBox(width: 30),
+                itemCount: state.brandFilter!.length,
+              ),
+            );
+          },
         ),
       ],
     );

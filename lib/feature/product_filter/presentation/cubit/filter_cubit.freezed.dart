@@ -20,6 +20,13 @@ mixin _$FilterState {
   int get genderIndex => throw _privateConstructorUsedError;
   int get colorIndex => throw _privateConstructorUsedError;
   int get brandIndex => throw _privateConstructorUsedError;
+  String get brandName => throw _privateConstructorUsedError;
+  RangeValues? get priceRange => throw _privateConstructorUsedError;
+  String get sortBy => throw _privateConstructorUsedError;
+  Gender? get gender => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get brandFilter =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FilterStateCopyWith<FilterState> get copyWith =>
@@ -32,7 +39,17 @@ abstract class $FilterStateCopyWith<$Res> {
           FilterState value, $Res Function(FilterState) then) =
       _$FilterStateCopyWithImpl<$Res, FilterState>;
   @useResult
-  $Res call({int sortByIndex, int genderIndex, int colorIndex, int brandIndex});
+  $Res call(
+      {int sortByIndex,
+      int genderIndex,
+      int colorIndex,
+      int brandIndex,
+      String brandName,
+      RangeValues? priceRange,
+      String sortBy,
+      Gender? gender,
+      String color,
+      List<Map<String, dynamic>>? brandFilter});
 }
 
 /// @nodoc
@@ -52,6 +69,12 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
     Object? genderIndex = null,
     Object? colorIndex = null,
     Object? brandIndex = null,
+    Object? brandName = null,
+    Object? priceRange = freezed,
+    Object? sortBy = null,
+    Object? gender = freezed,
+    Object? color = null,
+    Object? brandFilter = freezed,
   }) {
     return _then(_value.copyWith(
       sortByIndex: null == sortByIndex
@@ -70,6 +93,30 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
           ? _value.brandIndex
           : brandIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      brandName: null == brandName
+          ? _value.brandName
+          : brandName // ignore: cast_nullable_to_non_nullable
+              as String,
+      priceRange: freezed == priceRange
+          ? _value.priceRange
+          : priceRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as Gender?,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
+      brandFilter: freezed == brandFilter
+          ? _value.brandFilter
+          : brandFilter // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ) as $Val);
   }
 }
@@ -82,7 +129,17 @@ abstract class _$$FilterStateImplCopyWith<$Res>
       __$$FilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int sortByIndex, int genderIndex, int colorIndex, int brandIndex});
+  $Res call(
+      {int sortByIndex,
+      int genderIndex,
+      int colorIndex,
+      int brandIndex,
+      String brandName,
+      RangeValues? priceRange,
+      String sortBy,
+      Gender? gender,
+      String color,
+      List<Map<String, dynamic>>? brandFilter});
 }
 
 /// @nodoc
@@ -100,6 +157,12 @@ class __$$FilterStateImplCopyWithImpl<$Res>
     Object? genderIndex = null,
     Object? colorIndex = null,
     Object? brandIndex = null,
+    Object? brandName = null,
+    Object? priceRange = freezed,
+    Object? sortBy = null,
+    Object? gender = freezed,
+    Object? color = null,
+    Object? brandFilter = freezed,
   }) {
     return _then(_$FilterStateImpl(
       sortByIndex: null == sortByIndex
@@ -118,6 +181,30 @@ class __$$FilterStateImplCopyWithImpl<$Res>
           ? _value.brandIndex
           : brandIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      brandName: null == brandName
+          ? _value.brandName
+          : brandName // ignore: cast_nullable_to_non_nullable
+              as String,
+      priceRange: freezed == priceRange
+          ? _value.priceRange
+          : priceRange // ignore: cast_nullable_to_non_nullable
+              as RangeValues?,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as String,
+      gender: freezed == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as Gender?,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String,
+      brandFilter: freezed == brandFilter
+          ? _value._brandFilter
+          : brandFilter // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ));
   }
 }
@@ -129,8 +216,15 @@ class _$FilterStateImpl extends _FilterState {
       {this.sortByIndex = 0,
       this.genderIndex = 0,
       this.colorIndex = 0,
-      this.brandIndex = 0})
-      : super._();
+      this.brandIndex = -1,
+      this.brandName = "",
+      this.priceRange,
+      this.sortBy = "",
+      this.gender,
+      this.color = "",
+      final List<Map<String, dynamic>>? brandFilter})
+      : _brandFilter = brandFilter,
+        super._();
 
   @override
   @JsonKey()
@@ -144,10 +238,32 @@ class _$FilterStateImpl extends _FilterState {
   @override
   @JsonKey()
   final int brandIndex;
+  @override
+  @JsonKey()
+  final String brandName;
+  @override
+  final RangeValues? priceRange;
+  @override
+  @JsonKey()
+  final String sortBy;
+  @override
+  final Gender? gender;
+  @override
+  @JsonKey()
+  final String color;
+  final List<Map<String, dynamic>>? _brandFilter;
+  @override
+  List<Map<String, dynamic>>? get brandFilter {
+    final value = _brandFilter;
+    if (value == null) return null;
+    if (_brandFilter is EqualUnmodifiableListView) return _brandFilter;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'FilterState(sortByIndex: $sortByIndex, genderIndex: $genderIndex, colorIndex: $colorIndex, brandIndex: $brandIndex)';
+    return 'FilterState(sortByIndex: $sortByIndex, genderIndex: $genderIndex, colorIndex: $colorIndex, brandIndex: $brandIndex, brandName: $brandName, priceRange: $priceRange, sortBy: $sortBy, gender: $gender, color: $color, brandFilter: $brandFilter)';
   }
 
   @override
@@ -162,12 +278,31 @@ class _$FilterStateImpl extends _FilterState {
             (identical(other.colorIndex, colorIndex) ||
                 other.colorIndex == colorIndex) &&
             (identical(other.brandIndex, brandIndex) ||
-                other.brandIndex == brandIndex));
+                other.brandIndex == brandIndex) &&
+            (identical(other.brandName, brandName) ||
+                other.brandName == brandName) &&
+            (identical(other.priceRange, priceRange) ||
+                other.priceRange == priceRange) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.color, color) || other.color == color) &&
+            const DeepCollectionEquality()
+                .equals(other._brandFilter, _brandFilter));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, sortByIndex, genderIndex, colorIndex, brandIndex);
+      runtimeType,
+      sortByIndex,
+      genderIndex,
+      colorIndex,
+      brandIndex,
+      brandName,
+      priceRange,
+      sortBy,
+      gender,
+      color,
+      const DeepCollectionEquality().hash(_brandFilter));
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +316,13 @@ abstract class _FilterState extends FilterState {
       {final int sortByIndex,
       final int genderIndex,
       final int colorIndex,
-      final int brandIndex}) = _$FilterStateImpl;
+      final int brandIndex,
+      final String brandName,
+      final RangeValues? priceRange,
+      final String sortBy,
+      final Gender? gender,
+      final String color,
+      final List<Map<String, dynamic>>? brandFilter}) = _$FilterStateImpl;
   const _FilterState._() : super._();
 
   @override
@@ -192,6 +333,18 @@ abstract class _FilterState extends FilterState {
   int get colorIndex;
   @override
   int get brandIndex;
+  @override
+  String get brandName;
+  @override
+  RangeValues? get priceRange;
+  @override
+  String get sortBy;
+  @override
+  Gender? get gender;
+  @override
+  String get color;
+  @override
+  List<Map<String, dynamic>>? get brandFilter;
   @override
   @JsonKey(ignore: true)
   _$$FilterStateImplCopyWith<_$FilterStateImpl> get copyWith =>

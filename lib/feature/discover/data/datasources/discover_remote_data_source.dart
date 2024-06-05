@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoesly/core/error/exceptions.dart';
-import 'package:shoesly/core/product_model.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 
 abstract interface class DiscoverRemoteDataSource {
   Future<List<ProductModel>> getProductList();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/core.dart';
+import '../../../discover/data/models/product_model.dart';
 import '../cubit/product_detail_cubit.dart';
 import 'product_size_widget.dart';
 
@@ -12,7 +12,7 @@ class ProductSizeListWidget extends StatelessWidget {
     required this.textTheme,
   });
 
-  final ProductItemModel product;
+  final ProductModel product;
   final TextTheme textTheme;
 
   @override
@@ -28,7 +28,7 @@ class ProductSizeListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return ProductSizeWidget(
                 textTheme: textTheme,
-                size: product.size?[index] ?? 0.0,
+                size: double.parse("${product.size?[index]}"),
                 isSelected: index == state.shoeSize,
                 onTap: () {
                   context.read<ProductDetailCubit>().selectedShoeSize(index);

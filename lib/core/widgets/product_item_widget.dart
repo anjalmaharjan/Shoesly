@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shoesly/core/product_model.dart';
-import 'package:shoesly/core/routes.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
+import 'package:shoesly/core/routes/routes.dart';
 
 import '../responsive.dart';
 import '../theme/app_colors.dart';
 
 class ProductItem extends StatelessWidget {
-  final List<ProductModel> productList;
+  final List<ProductModel>? productList;
   const ProductItem({super.key, required this.productList});
 
   @override
@@ -23,16 +23,16 @@ class ProductItem extends StatelessWidget {
           mainAxisExtent: 250,
           crossAxisSpacing: 15,
         ),
-        itemCount: productList.length,
+        itemCount: productList?.length,
         itemBuilder: (BuildContext context, int index) {
           final textTheme = Theme.of(context).textTheme;
-          final product = productList[index];
+          final product = productList?[index];
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(
                 context,
                 AppRoutes.productDetail,
-                arguments: productList[index],
+                arguments: productList?[index],
               );
             },
             child: Column(
@@ -52,16 +52,17 @@ class ProductItem extends StatelessWidget {
                               : double.infinity,
                           padding: const EdgeInsets.only(top: 30),
                           child: Hero(
-                            tag: "${product.name ?? 0}${product.price ?? 0}",
+                            tag:
+                                "${product?.name ?? 0}${product?.brand ?? 0} ${product?.name ?? 0}${product?.id ?? 0}",
                             child: Image.network(
-                              productList[index].image ?? "",
+                              productList?[index].image ?? "",
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: SvgPicture.network(
-                              productList[index].brandLogo ?? ""),
+                              productList?[index].brandLogo ?? ""),
                         )
                       ],
                     ),
@@ -73,7 +74,7 @@ class ProductItem extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       Text(
-                        productList[index].name ?? "N/A",
+                        productList?[index].name ?? "N/A",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: textTheme.titleSmall,
@@ -94,13 +95,13 @@ class ProductItem extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text:
-                                      '${productList[index].rating ?? "N/A"}  ',
+                                      '${productList?[index].rating ?? "N/A"}  ',
                                   style: textTheme.titleSmall!
                                       .copyWith(fontWeight: FontWeight.w700),
                                 ),
                                 TextSpan(
                                   text:
-                                      '(${productList[index].review?.length ?? "No"} Reviews)',
+                                      '(${productList?[index].review?.length ?? "No"} Reviews)',
                                   style: textTheme.titleSmall!.copyWith(
                                     color: AppColors.unselectedTextColor,
                                   ),
@@ -112,7 +113,7 @@ class ProductItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "\$${productList[index].price ?? "N/A"}",
+                        "\$${productList?[index].price ?? "N/A"}",
                         style: textTheme.titleLarge!.copyWith(fontSize: 14),
                       ),
                     ],
@@ -127,44 +128,44 @@ class ProductItem extends StatelessWidget {
   }
 }
 
-class ProductItemModel {
-  final int? id;
-  final String? name;
-  final double? rating;
-  final double? reviewCount;
-  final double? price;
-  final String? image;
-  final String? logo;
-  final String? descrption;
-  final List<double>? size;
-  final List<ProductReviewModel>? reviewList;
+// class ProductItemModel {
+//   final int? id;
+//   final String? name;
+//   final double? rating;
+//   final double? reviewCount;
+//   final double? price;
+//   final String? image;
+//   final String? logo;
+//   final String? descrption;
+//   final List<double>? size;
+//   final List<ProductReviewModel>? reviewList;
 
-  ProductItemModel({
-    this.reviewList,
-    this.size,
-    this.descrption,
-    required this.id,
-    required this.name,
-    required this.rating,
-    required this.reviewCount,
-    required this.price,
-    required this.image,
-    required this.logo,
-  });
-}
+//   ProductItemModel({
+//     this.reviewList,
+//     this.size,
+//     this.descrption,
+//     required this.id,
+//     required this.name,
+//     required this.rating,
+//     required this.reviewCount,
+//     required this.price,
+//     required this.image,
+//     required this.logo,
+//   });
+// }
 
-class ProductReviewModel {
-  final String? image;
-  final String? name;
-  final String? comment;
-  final int? starCount;
-  final String date;
+// class ProductReviewModel {
+//   final String? image;
+//   final String? name;
+//   final String? comment;
+//   final int? starCount;
+//   final String date;
 
-  ProductReviewModel({
-    required this.image,
-    required this.name,
-    required this.comment,
-    required this.starCount,
-    this.date = "Today",
-  });
-}
+//   ProductReviewModel({
+//     required this.image,
+//     required this.name,
+//     required this.comment,
+//     required this.starCount,
+//     this.date = "Today",
+//   });
+// }

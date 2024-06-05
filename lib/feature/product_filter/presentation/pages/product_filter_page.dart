@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
+import 'package:shoesly/core/singletons/product_list_singleton.dart';
+import 'package:shoesly/feature/discover/presentation/cubit/discover_cubit.dart';
 import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
 import '../../../../core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +18,13 @@ class ProductFilterPage extends StatefulWidget {
 }
 
 class _ProductFilterPageState extends State<ProductFilterPage> {
-  // SfRangeValues _values = const SfRangeValues(40.0, 80.0);
-  RangeValues values = const RangeValues(0.0, 2000);
+  RangeValues _currentRangeValues = const RangeValues(0, 2000);
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as List<ProductModel>;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -33,94 +38,104 @@ class _ProductFilterPageState extends State<ProductFilterPage> {
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
-      body: BlocProvider(
-        create: (context) => FilterCubit(),
-        child: BlocBuilder<FilterCubit, FilterState>(
-          builder: (context, state) {
-            return Responsive(
-              mobile: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 30, top: 30, bottom: 70),
-                children: [
-                  BrandFilterWidget(
-                    textTheme: textTheme,
-                    selectedIndex: state.brandIndex,
+      body: BlocBuilder<FilterCubit, FilterState>(
+        builder: (context, state) {
+          return Responsive(
+            mobile: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 30, top: 30, bottom: 70),
+              children: [
+                BrandFilterWidget(
+                  textTheme: textTheme,
+                  selectedIndex: state.brandIndex,
+                  productModel: arguments,
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  "Price Range",
+                  style: textTheme.titleMedium,
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: RangeSlider(
+                    values: _currentRangeValues,
+                    min: 0,
+                    max: 2000,
+                    divisions: 10,
+                    labels: RangeLabels(
+                      _currentRangeValues.start.round().toString(),
+                      _currentRangeValues.end.round().toString(),
+                    ),
+                    onChanged: (newValues) {
+                      setState(() {
+                        _currentRangeValues = newValues;
+                      });
+                      context
+                          .read<FilterCubit>()
+                          .rangeFilter(_currentRangeValues);
+                    },
+                    activeColor: AppColors.selectedTextColor,
                   ),
-                  const SizedBox(height: 30),
-                  Text(
-                    "Price Range",
-                    style: textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 30.0),
-                      child: RangeSlider(
-                        min: 0,
-                        max: 2000,
-                        values: values,
-                        onChanged: (newValues) {
-                          setState(() {
-                            values = newValues;
-                          });
-                        },
-                        activeColor: AppColors.selectedTextColor,
-                        divisions: 3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30.0, left: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _currentRangeValues.start.round().toString(),
+                        style: textTheme.titleMedium,
                       ),
-                    ),
+                      Text(
+                        _currentRangeValues.end.round().toString(),
+                        style: textTheme.titleMedium,
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Sort By",
-                          style: textTheme.titleMedium,
-                        ),
-                        Text(
-                          "Sort By",
-                          style: textTheme.titleMedium,
-                        ),
-                        Text(
-                          "Sort By",
-                          style: textTheme.titleMedium,
-                        ),
-                        Text(
-                          "Sort By",
-                          style: textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  SortByFilterWidget(
-                    textTheme: textTheme,
-                    selectedIndex: state.sortByIndex,
-                  ),
-                  const SizedBox(height: 30),
-                  GenderFilterWidget(
-                    textTheme: textTheme,
-                    selectedIndex: state.genderIndex,
-                  ),
-                  const SizedBox(height: 30),
-                  ColorFilterWidget(
-                      textTheme: textTheme, selectedIndex: state.colorIndex),
-                ],
-              ),
-              tablet: const Column(),
-              desktop: const Column(),
-            );
-          },
-        ),
+                ),
+                const SizedBox(height: 30),
+                SortByFilterWidget(
+                  textTheme: textTheme,
+                  selectedIndex: state.sortByIndex,
+                ),
+                const SizedBox(height: 30),
+                GenderFilterWidget(
+                  textTheme: textTheme,
+                  selectedIndex: state.genderIndex,
+                ),
+                const SizedBox(height: 30),
+                ColorFilterWidget(
+                  textTheme: textTheme,
+                  selectedIndex: state.colorIndex,
+                ),
+              ],
+            ),
+            tablet: const Column(),
+            desktop: const Column(),
+          );
+        },
       ),
       bottomNavigationBar: CustomBottomNavBar(
         isleftButtonRequired: true,
         rightButtonText: "apply",
         leftButtonText: "Reset",
-        leftButtonOnPressed: () {},
-        rightButtonOnPressed: () {},
+        leftButtonOnPressed: () {
+          context.read<FilterCubit>().resetFilters();
+          setState(() {
+            _currentRangeValues = const RangeValues(0, 2000);
+          });
+        },
+        rightButtonOnPressed: () {
+          final filters = context.read<FilterCubit>().getAppliedFilters();
+          Navigator.pop(context);
+          BlocProvider.of<DiscoverCubit>(context)
+            ..sortProductCategory(ProductListSingleton.instance.productList)
+            ..selectCategory(
+              filters: filters,
+              categoryName: filters['brandName'],
+            );
+        },
       ),
     );
   }

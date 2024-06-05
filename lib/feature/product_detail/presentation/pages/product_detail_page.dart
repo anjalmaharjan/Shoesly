@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoesly/feature/discover/data/models/product_model.dart';
 import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 import '../../../../core/core.dart';
 import '../widgets/add_cart_bottom_widget.dart';
@@ -18,8 +19,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final product =
-        ModalRoute.of(context)?.settings.arguments as ProductItemModel;
+    final product = ModalRoute.of(context)?.settings.arguments as ProductModel;
     return Scaffold(
       appBar: AppBar(),
       body: Responsive(
@@ -41,7 +41,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 30),
               child: Row(
                 children: [
-                  const RatingStarWidget(rating: 4),
+                  RatingStarWidget(rating: product.rating ?? 0),
                   RichText(
                     text: TextSpan(
                       text: '',
@@ -52,7 +52,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               .copyWith(fontWeight: FontWeight.w700),
                         ),
                         TextSpan(
-                          text: '(${product.reviewCount ?? "No"} Reviews)',
+                          text: '(${product.review?.length ?? "No"} Reviews)',
                           style: textTheme.titleSmall!.copyWith(
                             color: AppColors.unselectedTextColor,
                           ),
@@ -78,12 +78,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
             const SizedBox(height: 10),
             Text(
-              "${product.descrption}",
+              "${product.description}",
               style: textTheme.bodyLarge,
             ),
             const SizedBox(height: 30),
             Text(
-              "Review (${product.reviewCount})",
+              "Review (${product.review?.length})",
               style: textTheme.titleMedium!.copyWith(fontSize: FontSize.s16),
             ),
             const SizedBox(height: 10),
@@ -91,7 +91,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             const SizedBox(height: 30),
             BorderButton(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.productReview);
+                Navigator.pushNamed(context, AppRoutes.productReview,
+                    arguments: product);
               },
               text: "see all review",
               height: 50,
@@ -113,15 +114,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
+              context.read<ProductDetailCubit>().resetQuantityAndTotalPrice();
               return BlocBuilder<ProductDetailCubit, ProductDetailState>(
                 builder: (context, state) {
-                  return AddToCartWidget(isAddedToCard: state.addedToCart);
+                  return AddToCartWidget(
+                    isAddedToCard: state.addedToCart,
+                    product: product,
+                  );
                 },
               );
             },
-          ).then((_) => context.read<ProductDetailCubit>().addToCart(false));
+          ).then((_) => context.read<ProductDetailCubit>().isCartAdded(false));
         },
-        totalCost: "255.00",
+        totalCost: product.price.toString(),
       ),
     );
   }

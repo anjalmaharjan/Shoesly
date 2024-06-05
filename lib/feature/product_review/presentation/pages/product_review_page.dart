@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoesly/core/theme/styles_manager.dart';
 import 'package:shoesly/feature/product_review/presentation/cubit/product_review_cubit.dart';
 
 import '../../../../core/core.dart';
+import '../../../discover/data/models/product_model.dart';
 
 class ProductReviewPage extends StatefulWidget {
   const ProductReviewPage({super.key});
@@ -13,19 +15,13 @@ class ProductReviewPage extends StatefulWidget {
 }
 
 class _ProductReviewPageState extends State<ProductReviewPage> {
-  List reviewCategoryList = [
-    'All',
-    "5 Stars",
-    "4 Stars",
-    '3 Stars',
-    "2 Stars",
-    '1 Star'
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)?.settings.arguments as ProductModel;
+
     return BlocProvider(
-      create: (context) => ProductReviewCubit(),
+      create: (context) =>
+          ProductReviewCubit()..sortReviewList(product.review!),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -72,7 +68,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                             : EdgeInsets.zero,
                         child: CategoryItem(
                           isSelected: state.selectedCategoryIndex == index,
-                          text: reviewCategoryList[index],
+                          text: state.reviewCategoryList![index],
                           onPressed: () {
                             context
                                 .read<ProductReviewCubit>()
@@ -82,27 +78,43 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                       ),
                       separatorBuilder: (context, index) =>
                           const SizedBox(width: 4),
-                      itemCount: reviewCategoryList.length,
+                      itemCount: state.reviewCategoryList!.length,
                     );
                   },
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.only(
-                      top: 20, bottom: 70, right: 30, left: 30),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return CommentItemWidget(
-                      commentModel: DummyData.reviewList[index],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 30,
-                  ),
-                  itemCount: DummyData.reviewList.length,
-                ),
+              BlocBuilder<ProductReviewCubit, ProductReviewState>(
+                builder: (context, state) {
+                  return Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.only(
+                          top: 20, bottom: 70, right: 30, left: 30),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return state.reviewList!.isEmpty
+                            ? Center(
+                                child: Text(
+                                  "Nothing in List",
+                                  style: getMediumtyle(
+                                    color: AppColors.unselectedTextColor,
+                                    fontSize: FontSize.s16,
+                                  ),
+                                ),
+                              )
+                            : CommentItemWidget(
+                                commentModel: state.reviewList?[index],
+                              );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(
+                        height: 30,
+                      ),
+                      itemCount: state.reviewList!.isEmpty
+                          ? 1
+                          : state.reviewList?.length ?? 0,
+                    ),
+                  );
+                },
               )
             ],
           ),

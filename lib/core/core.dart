@@ -1,16 +1,12 @@
-export 'package:shoesly/core/routes.dart';
+export 'package:shoesly/core/routes/routes.dart';
 export 'package:shoesly/core/responsive.dart';
 export 'package:shoesly/core/extensions/color_extenstion.dart';
 export 'package:shoesly/core/extensions/string_extension.dart';
-export 'package:shoesly/core/firebase/firebase_database_service.dart';
-export 'package:shoesly/core/firebase/firebase_messaging_service.dart';
 export 'package:shoesly/core/firebase/firebase_options.dart';
-export 'package:shoesly/core/firebase/local_notification_service.dart';
 export 'package:shoesly/core/theme/app_colors.dart';
 export 'package:shoesly/core/theme/app_theme.dart';
 export 'package:shoesly/core/theme/font_manager.dart';
 export 'package:shoesly/core/theme/styles_manager.dart';
-export 'package:shoesly/core/constants/dummy_data.dart';
 export 'package:shoesly/core/constants/filter_constants.dart';
 export 'package:shoesly/core/widgets/border_button_widget.dart';
 export 'package:shoesly/core/widgets/category_item_widget.dart';
