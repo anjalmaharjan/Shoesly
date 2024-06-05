@@ -19,6 +19,7 @@ mixin _$OrderSummaryState {
   double get subTotalCost => throw _privateConstructorUsedError;
   double get totalShippingCost => throw _privateConstructorUsedError;
   double get totalOrderCost => throw _privateConstructorUsedError;
+  ApiRequestStates? get apiRequestStates => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderSummaryStateCopyWith<OrderSummaryState> get copyWith =>
@@ -32,7 +33,10 @@ abstract class $OrderSummaryStateCopyWith<$Res> {
       _$OrderSummaryStateCopyWithImpl<$Res, OrderSummaryState>;
   @useResult
   $Res call(
-      {double subTotalCost, double totalShippingCost, double totalOrderCost});
+      {double subTotalCost,
+      double totalShippingCost,
+      double totalOrderCost,
+      ApiRequestStates? apiRequestStates});
 }
 
 /// @nodoc
@@ -51,6 +55,7 @@ class _$OrderSummaryStateCopyWithImpl<$Res, $Val extends OrderSummaryState>
     Object? subTotalCost = null,
     Object? totalShippingCost = null,
     Object? totalOrderCost = null,
+    Object? apiRequestStates = freezed,
   }) {
     return _then(_value.copyWith(
       subTotalCost: null == subTotalCost
@@ -65,6 +70,10 @@ class _$OrderSummaryStateCopyWithImpl<$Res, $Val extends OrderSummaryState>
           ? _value.totalOrderCost
           : totalOrderCost // ignore: cast_nullable_to_non_nullable
               as double,
+      apiRequestStates: freezed == apiRequestStates
+          ? _value.apiRequestStates
+          : apiRequestStates // ignore: cast_nullable_to_non_nullable
+              as ApiRequestStates?,
     ) as $Val);
   }
 }
@@ -78,7 +87,10 @@ abstract class _$$OrderSummaryStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double subTotalCost, double totalShippingCost, double totalOrderCost});
+      {double subTotalCost,
+      double totalShippingCost,
+      double totalOrderCost,
+      ApiRequestStates? apiRequestStates});
 }
 
 /// @nodoc
@@ -95,6 +107,7 @@ class __$$OrderSummaryStateImplCopyWithImpl<$Res>
     Object? subTotalCost = null,
     Object? totalShippingCost = null,
     Object? totalOrderCost = null,
+    Object? apiRequestStates = freezed,
   }) {
     return _then(_$OrderSummaryStateImpl(
       subTotalCost: null == subTotalCost
@@ -109,6 +122,10 @@ class __$$OrderSummaryStateImplCopyWithImpl<$Res>
           ? _value.totalOrderCost
           : totalOrderCost // ignore: cast_nullable_to_non_nullable
               as double,
+      apiRequestStates: freezed == apiRequestStates
+          ? _value.apiRequestStates
+          : apiRequestStates // ignore: cast_nullable_to_non_nullable
+              as ApiRequestStates?,
     ));
   }
 }
@@ -119,7 +136,8 @@ class _$OrderSummaryStateImpl extends _OrderSummaryState {
   const _$OrderSummaryStateImpl(
       {this.subTotalCost = 0,
       this.totalShippingCost = 0,
-      this.totalOrderCost = 0})
+      this.totalOrderCost = 0,
+      this.apiRequestStates = ApiRequestStates.initial})
       : super._();
 
   @override
@@ -131,10 +149,13 @@ class _$OrderSummaryStateImpl extends _OrderSummaryState {
   @override
   @JsonKey()
   final double totalOrderCost;
+  @override
+  @JsonKey()
+  final ApiRequestStates? apiRequestStates;
 
   @override
   String toString() {
-    return 'OrderSummaryState(subTotalCost: $subTotalCost, totalShippingCost: $totalShippingCost, totalOrderCost: $totalOrderCost)';
+    return 'OrderSummaryState(subTotalCost: $subTotalCost, totalShippingCost: $totalShippingCost, totalOrderCost: $totalOrderCost, apiRequestStates: $apiRequestStates)';
   }
 
   @override
@@ -147,12 +168,14 @@ class _$OrderSummaryStateImpl extends _OrderSummaryState {
             (identical(other.totalShippingCost, totalShippingCost) ||
                 other.totalShippingCost == totalShippingCost) &&
             (identical(other.totalOrderCost, totalOrderCost) ||
-                other.totalOrderCost == totalOrderCost));
+                other.totalOrderCost == totalOrderCost) &&
+            (identical(other.apiRequestStates, apiRequestStates) ||
+                other.apiRequestStates == apiRequestStates));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, subTotalCost, totalShippingCost, totalOrderCost);
+  int get hashCode => Object.hash(runtimeType, subTotalCost, totalShippingCost,
+      totalOrderCost, apiRequestStates);
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +189,8 @@ abstract class _OrderSummaryState extends OrderSummaryState {
   const factory _OrderSummaryState(
       {final double subTotalCost,
       final double totalShippingCost,
-      final double totalOrderCost}) = _$OrderSummaryStateImpl;
+      final double totalOrderCost,
+      final ApiRequestStates? apiRequestStates}) = _$OrderSummaryStateImpl;
   const _OrderSummaryState._() : super._();
 
   @override
@@ -175,6 +199,8 @@ abstract class _OrderSummaryState extends OrderSummaryState {
   double get totalShippingCost;
   @override
   double get totalOrderCost;
+  @override
+  ApiRequestStates? get apiRequestStates;
   @override
   @JsonKey(ignore: true)
   _$$OrderSummaryStateImplCopyWith<_$OrderSummaryStateImpl> get copyWith =>

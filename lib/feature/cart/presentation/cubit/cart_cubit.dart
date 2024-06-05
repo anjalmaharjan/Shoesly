@@ -64,4 +64,8 @@ class CartCubit extends Cubit<CartState> {
           state.copyWith(cartProductList: productList, totalPrice: totalPrice));
     }
   }
+
+  void clearCart() {
+    emit(state.copyWith(cartProductList: [], totalPrice: 0.0));
+  }
 }

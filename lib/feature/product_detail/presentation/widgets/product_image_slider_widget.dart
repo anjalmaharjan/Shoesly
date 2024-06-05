@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +9,27 @@ import 'package:shoesly/feature/product_detail/presentation/cubit/product_detail
 import '../../../../core/core.dart';
 import '../../../discover/data/models/product_model.dart';
 
-class ProductImageSliderWidget extends StatelessWidget {
+class ProductImageSliderWidget extends StatefulWidget {
   const ProductImageSliderWidget({
     super.key,
     required this.product,
   });
 
   final ProductModel product;
+
+  @override
+  State<ProductImageSliderWidget> createState() =>
+      _ProductImageSliderWidgetState();
+}
+
+class _ProductImageSliderWidgetState extends State<ProductImageSliderWidget> {
+  late CarouselController controller;
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    controller = CarouselController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +49,25 @@ class ProductImageSliderWidget extends StatelessWidget {
                   height: 178,
                   child: Hero(
                     tag:
-                        "${product.name ?? 0}${product.brand ?? 0} ${product.name ?? 0}${product.id ?? 0}",
-                    child: Image.network(
-                      product.image ?? "",
-                      fit: BoxFit.cover,
+                        "${widget.product.name ?? 0}${widget.product.brand ?? 0} ${widget.product.name ?? 0}${widget.product.id ?? 0}",
+                    child: CarouselSlider(
+                      carouselController: controller,
+                      items: List.generate(
+                        3,
+                        (index) => Image.network(
+                          widget.product.image ?? "",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      options: CarouselOptions(
+                        height: 400,
+                        autoPlay: true,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentIndex = index;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -99,6 +130,20 @@ class ProductImageSliderWidget extends StatelessWidget {
                 ),
               );
             },
+          ),
+          Positioned(
+            bottom: 8,
+            left: 16,
+            child: DotsIndicator(
+              dotsCount: 3,
+              position: currentIndex,
+              onTap: (position) {
+                controller.animateToPage(position);
+              },
+              decorator: DotsDecorator(
+                activeColor: AppColors.selectedTextColor,
+              ),
+            ),
           ),
         ],
       ),

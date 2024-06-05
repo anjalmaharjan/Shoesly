@@ -16,6 +16,7 @@ import 'package:shoesly/feature/product_detail/presentation/pages/product_detail
 import 'package:shoesly/feature/product_filter/presentation/cubit/filter_cubit.dart';
 import 'package:shoesly/feature/product_filter/presentation/pages/product_filter_page.dart';
 import 'package:shoesly/feature/product_review/presentation/pages/product_review_page.dart';
+import 'package:shoesly/feature/splash/presentation/splash_page.dart';
 import 'core/core.dart';
 import 'feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 
@@ -60,8 +61,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Shoesly',
       theme: AppTheme.lightThemeMode,
-      home: const DiscoverPage(),
+      home: const SplashPage(),
       routes: {
+        AppRoutes.splash: (context) => const SplashPage(),
         AppRoutes.discover: (context) => const DiscoverPage(),
         AppRoutes.productDetail: (context) => const ProductDetailPage(),
         AppRoutes.cart: (context) => const CartPage(),
