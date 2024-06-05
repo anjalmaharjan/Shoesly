@@ -21,7 +21,7 @@ import 'feature/product_detail/presentation/cubit/product_detail_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
   FirebaseMessagingService().requestPersmission();
   runApp(
     MultiBlocProvider(
