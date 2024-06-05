@@ -14,16 +14,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    // ...add more items
-  ];
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -93,12 +83,15 @@ class _CartPageState extends State<CartPage> {
       ),
       bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
+          final cartList = state.cartProductList ?? [];
           return CustomBottomNavBar(
             rightButtonText: "checkout",
-            rightButtonOnPressed: () {
-              Navigator.pushNamed(context, AppRoutes.orderSummary,
-                  arguments: state.cartProductList);
-            },
+            rightButtonOnPressed: cartList.isEmpty
+                ? () {}
+                : () {
+                    Navigator.pushNamed(context, AppRoutes.orderSummary,
+                        arguments: state.cartProductList);
+                  },
             isleftButtonRequired: false,
             title: "Grand Total",
             totalCost: (state.totalPrice ?? 0.0).toString(),

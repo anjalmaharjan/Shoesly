@@ -91,6 +91,17 @@ class AddToCartWidget extends StatelessWidget {
                                     hintText: "1",
                                     border: InputBorder.none,
                                   ),
+                                  onChanged: (value) {
+                                    context
+                                        .read<ProductDetailCubit>()
+                                        .changeQuantityTyping(
+                                          productCubit.quantityController.text
+                                                  .isEmpty
+                                              ? 0
+                                              : int.parse(value),
+                                          product.price ?? 0.0,
+                                        );
+                                  },
                                   maxLines: 1,
                                 ),
                               ),
