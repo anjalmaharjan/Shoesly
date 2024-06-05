@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shoesly/core/enum/enum.dart';
 import 'package:shoesly/feature/order_summary/data/models/payment_model.dart';
 import 'package:shoesly/feature/order_summary/domain/usecases/order_summary_usecase.dart';
 
@@ -35,6 +36,8 @@ class OrderSummaryCubit extends Cubit<OrderSummaryState> {
   }
 
   void postPaymentToDb(PaymentModel model) {
+    emit(state.copyWith(apiRequestStates: ApiRequestStates.loading));
     _orderSummaryUsecase(model);
+    emit(state.copyWith(apiRequestStates: ApiRequestStates.success));
   }
 }

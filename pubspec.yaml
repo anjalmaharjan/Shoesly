@@ -49,6 +49,8 @@ dependencies:
   get_it: ^7.7.0
   firebase_database: any
   internet_connection_checker_plus: any
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
 
   
 

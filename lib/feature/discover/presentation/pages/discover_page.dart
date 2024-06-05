@@ -8,6 +8,7 @@ import 'package:shoesly/feature/discover/presentation/pages/discover_desktop_pag
 import 'package:shoesly/feature/discover/presentation/pages/discover_mobile_page.dart';
 import 'package:shoesly/feature/discover/presentation/pages/discover_tablet_page.dart';
 import '../../../../core/core.dart';
+import '../../../../core/widgets/loader.dart';
 import '../widgets/filter_button_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -29,17 +30,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
         return BlocConsumer<DiscoverCubit, DiscoverState>(
           listener: (context, state) {
             if (state.status == ApiRequestStates.loading) {
-              showAdaptiveDialog(
-                context: context,
-                builder: (context) => Center(
-                  child: Container(
-                    margin: const EdgeInsets.all(30),
-                    padding: const EdgeInsets.all(30),
-                    color: AppColors.backgroundColor,
-                    child: const CircularProgressIndicator.adaptive(),
-                  ),
-                ),
-              );
+              circularLoader(context);
               Future.delayed(
                 const Duration(seconds: 2),
                 () => Navigator.pop(context),
